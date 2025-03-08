@@ -5,15 +5,14 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.helphull.bistrenglish.databinding.ActivityErrorWorkBinding
-import com.helphull.bistrenglish.text.englishWords
 import com.helphull.bistrenglish.text.errorEnWords
 import com.helphull.bistrenglish.text.errorRuWords
-import com.helphull.bistrenglish.text.russianVerbs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -42,7 +41,7 @@ class ErrorWorkActivity : AppCompatActivity() {
 
     fun nextWord() {
         wordNumber += 1
-        if (wordNumber >= com.helphull.bistrenglish.text.errorRuWords.size) {
+        if (wordNumber >= errorRuWords.size) {
             // Показываем кнопку "В начало"
             binding.btIdkError.visibility = View.GONE
             binding.btRestartError.visibility = View.VISIBLE
@@ -51,17 +50,17 @@ class ErrorWorkActivity : AppCompatActivity() {
 
         // Обновляем actualWords каждый раз при вызове nextWord()
         val actualWords = mutableListOf(
-            com.helphull.bistrenglish.text.errorRuWords[wordNumber],
-            com.helphull.bistrenglish.text.rundomRussianVrerbs[Random.nextInt(101)],
-            com.helphull.bistrenglish.text.rundomRussianVrerbs[Random.nextInt(101)],
-            com.helphull.bistrenglish.text.rundomRussianVrerbs[Random.nextInt(101)],
-            com.helphull.bistrenglish.text.rundomRussianVrerbs[Random.nextInt(101)]
+            errorRuWords[wordNumber],
+            com.helphull.bistrenglish.text.randomRussianVerbsA1[Random.nextInt(101)],
+            com.helphull.bistrenglish.text.randomRussianVerbsA1[Random.nextInt(101)],
+            com.helphull.bistrenglish.text.randomRussianVerbsA1[Random.nextInt(101)],
+            com.helphull.bistrenglish.text.randomRussianVerbsA1[Random.nextInt(101)]
         )
 
         actualWords.shuffle() // Раскомментируйте, если нужно перемешать слова
 
         // Обновляем текст кнопок
-        binding.tvCurrentWordError.text = com.helphull.bistrenglish.text.errorEnWords[wordNumber]
+        binding.tvCurrentWordError.text = errorEnWords[wordNumber]
         binding.btAnswer1Error.text = actualWords[0]
         binding.btAnswer2Error.text = actualWords[1]
         binding.btAnswer3Error.text = actualWords[2]
@@ -96,15 +95,23 @@ class ErrorWorkActivity : AppCompatActivity() {
 
         nextWord()
         binding.btRestartError.setOnClickListener {
+
             errorEnWords.removeAll(enWordsToRemove)
             errorRuWords.removeAll(ruWordsToRemove)
+            if (errorEnWords.size == 0){
+                Toast.makeText(this, "Ошибки прорешаны!", Toast.LENGTH_SHORT).show()
+                Thread.sleep(1200)
+                val intentCooseThemeActivity = Intent(this, CooseThemeActivity::class.java)
+                startActivity(intentCooseThemeActivity)
+                finish()
+            }
             recreate() // Закрываем текущую Activity
         }
         binding.btIdkError.setOnClickListener {
             nextWord()
         }
         binding.btAnswer1Error.setOnClickListener {
-            if (binding.btAnswer1Error.text == com.helphull.bistrenglish.text.errorRuWords[wordNumber]) {
+            if (binding.btAnswer1Error.text == errorRuWords[wordNumber]) {
                 unclickable()
                 binding.btAnswer1Error.setBackgroundColor(Color.GREEN)
                 removeWord()
@@ -124,7 +131,7 @@ class ErrorWorkActivity : AppCompatActivity() {
             }
         }
         binding.btAnswer2Error.setOnClickListener {
-            if (binding.btAnswer2Error.text == com.helphull.bistrenglish.text.errorRuWords[wordNumber]) {
+            if (binding.btAnswer2Error.text == errorRuWords[wordNumber]) {
                 unclickable()
                 binding.btAnswer2Error.setBackgroundColor(Color.GREEN)
 
@@ -146,7 +153,7 @@ class ErrorWorkActivity : AppCompatActivity() {
         }
         binding.btAnswer3Error.setOnClickListener {
 
-            if (binding.btAnswer3Error.text == com.helphull.bistrenglish.text.errorRuWords[wordNumber]) {
+            if (binding.btAnswer3Error.text == errorRuWords[wordNumber]) {
                 unclickable()
                 binding.btAnswer3Error.setBackgroundColor(Color.GREEN)
                 removeWord()
@@ -167,7 +174,7 @@ class ErrorWorkActivity : AppCompatActivity() {
         binding.btAnswer4Error.setOnClickListener {
 
 
-            if (binding.btAnswer4Error.text == com.helphull.bistrenglish.text.errorRuWords[wordNumber]) {
+            if (binding.btAnswer4Error.text == errorRuWords[wordNumber]) {
                 unclickable()
                 binding.btAnswer4Error.setBackgroundColor(Color.GREEN)
                 removeWord()
@@ -186,7 +193,7 @@ class ErrorWorkActivity : AppCompatActivity() {
             }
         }
         binding.btAnswer5Error.setOnClickListener {
-            if (binding.btAnswer5Error.text == com.helphull.bistrenglish.text.errorRuWords[wordNumber]) {
+            if (binding.btAnswer5Error.text == errorRuWords[wordNumber]) {
                 unclickable()
                 binding.btAnswer5Error.setBackgroundColor(Color.GREEN)
                 removeWord()

@@ -3,20 +3,23 @@ package com.helphull.bistrenglish
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.helphull.bistrenglish.databinding.ActivityMainBinding
-import com.helphull.bistrenglish.text.delayInApp
-import com.helphull.bistrenglish.text.englishWords
+import com.helphull.bistrenglish.text.englishNounsWordAroundA1
+
+import com.helphull.bistrenglish.text.englishVerbsA1
 import com.helphull.bistrenglish.text.errorEnWords
 import com.helphull.bistrenglish.text.errorRuWords
-import com.helphull.bistrenglish.text.russianVerbs
+import com.helphull.bistrenglish.text.randomRussianNounsA1
+import com.helphull.bistrenglish.text.randomRussianVerbsA1
+import com.helphull.bistrenglish.text.russianNounsWordAroundA1
+
+import com.helphull.bistrenglish.text.russianVerbsA1
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -26,24 +29,30 @@ import kotlin.random.Random
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    
+    //Блок переменных по темам
+    private var rusAppWords = russianVerbsA1
+    private var enAppWords = englishVerbsA1
+    private var randomRuAppWords = randomRussianVerbsA1
+    
 
     fun btPaintGreen() {
-        if (binding.btAnswer1.text == russianVerbs[wordNumber]) {
+        if (binding.btAnswer1.text == rusAppWords[wordNumber]) {
             binding.btAnswer1.setBackgroundColor(Color.GREEN)
-        } else if (binding.btAnswer2.text == russianVerbs[wordNumber]) {
+        } else if (binding.btAnswer2.text == rusAppWords[wordNumber]) {
             binding.btAnswer2.setBackgroundColor(Color.GREEN)
-        } else if (binding.btAnswer3.text == russianVerbs[wordNumber]) {
+        } else if (binding.btAnswer3.text == rusAppWords[wordNumber]) {
             binding.btAnswer3.setBackgroundColor(Color.GREEN)
-        } else if (binding.btAnswer4.text == russianVerbs[wordNumber]) {
+        } else if (binding.btAnswer4.text == rusAppWords[wordNumber]) {
             binding.btAnswer4.setBackgroundColor(Color.GREEN)
-        } else if (binding.btAnswer5.text == russianVerbs[wordNumber]) {
+        } else if (binding.btAnswer5.text == rusAppWords[wordNumber]) {
             binding.btAnswer5.setBackgroundColor(Color.GREEN)
         }
     }
 
     fun addErrors() {
-        errorEnWords.add(englishWords[wordNumber])
-        errorRuWords.add(russianVerbs[wordNumber])
+        errorEnWords.add(enAppWords[wordNumber])
+        errorRuWords.add(rusAppWords[wordNumber])
     }
 
     fun unclickable() {
@@ -56,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
     var wordNumber = -1
     fun nextWord() {
-        if (wordNumber >= com.helphull.bistrenglish.text.russianVerbs.size - 1) {
+        if (wordNumber >= rusAppWords.size - 1) {
             // Показываем кнопку "В начало"
             binding.btRestart.visibility = View.VISIBLE
             return // Прекращаем обновление слов
@@ -66,17 +75,17 @@ class MainActivity : AppCompatActivity() {
 
         // Обновляем actualWords каждый раз при вызове nextWord()
         val actualWords = mutableListOf(
-            com.helphull.bistrenglish.text.russianVerbs[wordNumber],
-            com.helphull.bistrenglish.text.rundomRussianVrerbs[Random.nextInt(101)],
-            com.helphull.bistrenglish.text.rundomRussianVrerbs[Random.nextInt(101)],
-            com.helphull.bistrenglish.text.rundomRussianVrerbs[Random.nextInt(101)],
-            com.helphull.bistrenglish.text.rundomRussianVrerbs[Random.nextInt(101)]
+            rusAppWords[wordNumber],
+            randomRuAppWords[Random.nextInt(101)],
+            randomRuAppWords[Random.nextInt(101)],
+            randomRuAppWords[Random.nextInt(101)],
+            randomRuAppWords[Random.nextInt(101)]
         )
 
         actualWords.shuffle() // Раскомментируйте, если нужно перемешать слова
 
         // Обновляем текст кнопок
-        binding.tvCurrentWord.text = com.helphull.bistrenglish.text.englishWords[wordNumber]
+        binding.tvCurrentWord.text = enAppWords[wordNumber]
         binding.btAnswer1.text = actualWords[0]
         binding.btAnswer2.text = actualWords[1]
         binding.btAnswer3.text = actualWords[2]
@@ -109,12 +118,22 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        if(choosenTheme == 1){
+            rusAppWords = russianVerbsA1
+            enAppWords = englishVerbsA1
+            randomRuAppWords = randomRussianVerbsA1
+        }
+        else if (choosenTheme == 2){
+            rusAppWords = russianNounsWordAroundA1
+            enAppWords = englishNounsWordAroundA1
+            randomRuAppWords = randomRussianNounsA1
+        }
 
         nextWord()
         binding.btRestart.setOnClickListener {
             if (errorEnWords.size == 0) {
 
-                Toast.makeText(this, "Ошибок нет!", Toast.LENGTH_SHORT)
+                Toast.makeText(this, "Ошибок нет!", Toast.LENGTH_SHORT).show()
                 Thread.sleep(delayInApp)
                 val intentCooseThemeActivity = Intent(this, CooseThemeActivity::class.java)
                 startActivity(intentCooseThemeActivity)
@@ -139,7 +158,7 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.btAnswer1.setOnClickListener {
-            if (binding.btAnswer1.text == com.helphull.bistrenglish.text.russianVerbs[wordNumber]) {
+            if (binding.btAnswer1.text == rusAppWords[wordNumber]) {
                 //unclickable()
                 binding.btAnswer1.setBackgroundColor(Color.GREEN)
                 btPaintGreen()
@@ -159,7 +178,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.btAnswer2.setOnClickListener {
-            if (binding.btAnswer2.text == com.helphull.bistrenglish.text.russianVerbs[wordNumber]) {
+            if (binding.btAnswer2.text == rusAppWords[wordNumber]) {
                 unclickable()
                 binding.btAnswer2.setBackgroundColor(Color.GREEN)
                 btPaintGreen()
@@ -180,7 +199,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btAnswer3.setOnClickListener {
 
-            if (binding.btAnswer3.text == com.helphull.bistrenglish.text.russianVerbs[wordNumber]) {
+            if (binding.btAnswer3.text == rusAppWords[wordNumber]) {
                 unclickable()
                 binding.btAnswer3.setBackgroundColor(Color.GREEN)
                 btPaintGreen()
@@ -202,7 +221,7 @@ class MainActivity : AppCompatActivity() {
         binding.btAnswer4.setOnClickListener {
 
 
-            if (binding.btAnswer4.text == com.helphull.bistrenglish.text.russianVerbs[wordNumber]) {
+            if (binding.btAnswer4.text == rusAppWords[wordNumber]) {
                 unclickable()
                 binding.btAnswer4.setBackgroundColor(Color.GREEN)
                 btPaintGreen()
@@ -222,7 +241,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.btAnswer5.setOnClickListener {
-            if (binding.btAnswer5.text == com.helphull.bistrenglish.text.russianVerbs[wordNumber]) {
+            if (binding.btAnswer5.text == rusAppWords[wordNumber]) {
                 unclickable()
                 binding.btAnswer5.setBackgroundColor(Color.GREEN)
                 btPaintGreen()
