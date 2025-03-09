@@ -7,17 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".ChooseThemeActivity">
 
-    <Button
-        android:id="@+id/bt_theme_"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="Базовые наречия"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_theme_6" />
-
     <TextView
         android:id="@+id/tv_theme"
         android:layout_width="wrap_content"
@@ -44,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Окрыжающий мир"
+        android:text="Окружающий мир"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bt_theme_1" />
@@ -89,4 +78,15 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bt_theme_5" />
+
+    <Button
+        android:id="@+id/bt_theme_7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Базовые наречия"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_theme_6" />
 </androidx.constraintlayout.widget.ConstraintLayout>

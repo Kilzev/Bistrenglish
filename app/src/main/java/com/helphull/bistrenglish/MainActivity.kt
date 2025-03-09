@@ -4,8 +4,6 @@ import TextToSpeechManager
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -13,13 +11,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.helphull.bistrenglish.databinding.ActivityMainBinding
+import com.helphull.bistrenglish.text.enNounsFamilyA1
+import com.helphull.bistrenglish.text.enNounsSocialA1
 import com.helphull.bistrenglish.text.englishNounsWordAroundA1
 
 import com.helphull.bistrenglish.text.englishVerbsA1
 import com.helphull.bistrenglish.text.errorEnWords
 import com.helphull.bistrenglish.text.errorRuWords
-import com.helphull.bistrenglish.text.randomRussianNounsA1
+import com.helphull.bistrenglish.text.familyWords
+import com.helphull.bistrenglish.text.randomRuNounsSocialA1
+import com.helphull.bistrenglish.text.randomRussianNounsWorldA1
 import com.helphull.bistrenglish.text.randomRussianVerbsA1
+import com.helphull.bistrenglish.text.ruNounsFamilyA1
+import com.helphull.bistrenglish.text.ruNounsSocialA1
 import com.helphull.bistrenglish.text.russianNounsWordAroundA1
 
 import com.helphull.bistrenglish.text.russianVerbsA1
@@ -27,7 +31,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.Locale
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(){
@@ -68,6 +71,7 @@ class MainActivity : AppCompatActivity(){
     }
 
     var wordNumber = -1
+
     fun nextWord() {
         if (wordNumber >= rusAppWords.size - 1) {
             // Показываем кнопку "В начало"
@@ -122,19 +126,32 @@ class MainActivity : AppCompatActivity(){
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        // Распределение в зависимости от выбранной темы
-
         ttsManager = TextToSpeechManager(this)
-        if(choosenTheme == 1){
-            rusAppWords = russianVerbsA1
-            enAppWords = englishVerbsA1
-            randomRuAppWords = randomRussianVerbsA1
+
+        // Распределение в зависимости от выбранной темы
+        when (choosenTheme) {
+            1 -> {
+                rusAppWords = russianVerbsA1
+                enAppWords = englishVerbsA1
+                randomRuAppWords = randomRussianVerbsA1
+            }
+            2 -> {
+                rusAppWords = russianNounsWordAroundA1
+                enAppWords = englishNounsWordAroundA1
+                randomRuAppWords = randomRussianNounsWorldA1
+            }
+            3 -> {
+                rusAppWords = ruNounsFamilyA1
+                enAppWords = enNounsFamilyA1
+                randomRuAppWords = familyWords
+            }
+            4 -> {
+                rusAppWords = ruNounsSocialA1
+                enAppWords = enNounsSocialA1
+                randomRuAppWords = randomRuNounsSocialA1
+            }
         }
-        else if (choosenTheme == 2){
-            rusAppWords = russianNounsWordAroundA1
-            enAppWords = englishNounsWordAroundA1
-            randomRuAppWords = randomRussianNounsA1
-        }
+
         // Первая инициализация
         nextWord()
 

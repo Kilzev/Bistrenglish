@@ -23,7 +23,7 @@ import kotlin.random.Random
 class ErrorWorkActivity : AppCompatActivity() {
     private lateinit var binding: ActivityErrorWorkBinding
     private lateinit var ttsManager: TextToSpeechManager
-    fun unclickable() {
+    private fun unclickable() {
         binding.btAnswer1Error.isClickable = false
         binding.btAnswer2Error.isClickable = false
         binding.btAnswer3Error.isClickable = false
@@ -42,7 +42,7 @@ class ErrorWorkActivity : AppCompatActivity() {
 
     fun nextWord() {
         wordNumber += 1
-        if (wordNumber >= errorRuWords.size) {
+        if (wordNumber == errorRuWords.size) {
             // Показываем кнопку "В начало"
             binding.btIdkError.visibility = View.GONE
             binding.btRestartError.visibility = View.VISIBLE
@@ -84,9 +84,9 @@ class ErrorWorkActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityErrorWorkBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        binding = ActivityErrorWorkBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

@@ -20,13 +20,45 @@ class ChooseThemeActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-    binding.btTheme1.setOnClickListener {val intentMainActivity = Intent(this,MainActivity ::class.java)
-    startActivity(intentMainActivity)
-        choosenTheme = 1
-    }
-    binding.btTheme2.setOnClickListener{val intentMainActivity = Intent(this,MainActivity::class.java)
-    startActivity(intentMainActivity)
-        choosenTheme = 2
-    }
+        binding.btTheme1.setOnClickListener {
+            val intentMainActivity = Intent(this, MainActivity::class.java)
+            startActivity(intentMainActivity)
+            choosenTheme = 1
+        }
+        binding.btTheme2.setOnClickListener {
+            val intentMainActivity = Intent(this, MainActivity::class.java)
+            startActivity(intentMainActivity)
+            choosenTheme = 2
+        }
+
+        binding.btTheme3.setOnClickListener {
+            val intentMainActivity = Intent(this, MainActivity::class.java)
+            startActivity(intentMainActivity)
+            choosenTheme = 3
+        }
+
+        binding.btTheme4.setOnClickListener {
+            val intentMainActivity = Intent(this, MainActivity::class.java)
+            startActivity(intentMainActivity)
+            choosenTheme = 4
+        }
+
+        binding.btTheme5.setOnClickListener {
+            val intentMainActivity = Intent(this, MainActivity::class.java)
+            startActivity(intentMainActivity)
+            choosenTheme = 5
+        }
+
+        binding.btTheme6.setOnClickListener {
+            val intentMainActivity = Intent(this, MainActivity::class.java)
+            startActivity(intentMainActivity)
+            choosenTheme = 6
+        }
+
+        binding.btTheme7.setOnClickListener {
+            val intentMainActivity = Intent(this, MainActivity::class.java)
+            startActivity(intentMainActivity)
+            choosenTheme = 7
+        }
     }
 }
