@@ -1,5 +1,6 @@
 package com.helphull.bistrenglish
 
+import TextToSpeechManager
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -21,7 +22,7 @@ import kotlin.random.Random
 
 class ErrorWorkActivity : AppCompatActivity() {
     private lateinit var binding: ActivityErrorWorkBinding
-
+    private lateinit var ttsManager: TextToSpeechManager
     fun unclickable() {
         binding.btAnswer1Error.isClickable = false
         binding.btAnswer2Error.isClickable = false
@@ -92,8 +93,9 @@ class ErrorWorkActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         nextWord()
+        ttsManager = TextToSpeechManager(this)
+        binding.btPlayTextError.setOnClickListener { ttsManager.speak(errorEnWords[wordNumber]) }
         binding.btRestartError.setOnClickListener {
 
             errorEnWords.removeAll(enWordsToRemove)
@@ -101,8 +103,8 @@ class ErrorWorkActivity : AppCompatActivity() {
             if (errorEnWords.size == 0){
                 Toast.makeText(this, "Ошибки прорешаны!", Toast.LENGTH_SHORT).show()
                 Thread.sleep(1200)
-                val intentCooseThemeActivity = Intent(this, CooseThemeActivity::class.java)
-                startActivity(intentCooseThemeActivity)
+                val intentChooseThemeActivity = Intent(this, ChooseThemeActivity::class.java)
+                startActivity(intentChooseThemeActivity)
                 finish()
             }
             recreate() // Закрываем текущую Activity
@@ -211,5 +213,9 @@ class ErrorWorkActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        ttsManager.shutdown()
     }
 }

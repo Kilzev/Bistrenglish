@@ -98,5 +98,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/bt_play_text_error"
+            android:layout_width="70dp"
+            android:layout_height="69dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="80dp"
+            android:backgroundTint="#00FFFFFF"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@+id/tv_current_word_error"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_lock_silent_mode_off"
+            app:tint="#000000" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

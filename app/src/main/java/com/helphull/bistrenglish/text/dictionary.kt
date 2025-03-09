@@ -5,7 +5,7 @@ val errorEnWords = mutableListOf<String>()
 val errorRuWords = mutableListOf<String>()
 
 
-val englishVerbsA1 = listOf("To be", "To do" ,"To feel", "To see", "To hear", "To run", "To get", "To make",
+val englishVerbsA1 = listOf("To be", "To do" ,"To feel")/*, "To see", "To hear", "To run", "To get", "To make",
     "To cook", "To sing", "To speak", "To say", "To tell", "To take", "To sit", "To stand",
     "To laugh", "To smile", "To open", "To close", "To love", "To like", "To give", "To bring",
     "To breathe", "To buy", "To sell", "To forget", "To believe", "To have", "To go", "To know",
@@ -20,10 +20,10 @@ val englishVerbsA1 = listOf("To be", "To do" ,"To feel", "To see", "To hear", "T
     "To fall", "To cut", "To achieve", "To communicate", "To kill", "To pass", "To fly", "To swim",
     "To decide", "To return", "To hope", "To explain", "To propose", "To develop", "To support",
     "To dance", "To draw", "To book", "To be afraid", "To agree", "To check up", "To delete",
-    "To choose", "To catch", "To ask", "To answer", "To hesitate")
+    "To choose", "To catch", "To ask", "To answer", "To hesitate")*/
 
 val russianVerbsA1 = listOf(
-    "быть", "делать", "чувствовать", "видеть", "слышать", "бежать", "получать", "создавать",
+    "быть", "делать", "чувствовать")/*, "видеть", "слышать", "бежать", "получать", "создавать",
     "готовить", "петь", "говорить", "говорить", "сказать", "взять", "сидеть", "стоять",
     "смеяться", "улыбаться", "открывать", "закрывать", "любить", "нравиться", "давать", "принести",
     "дышать", "купить", "продать", "забыть", "верить", "иметь", "идти", "знать",
@@ -38,7 +38,7 @@ val russianVerbsA1 = listOf(
     "падать", "резать", "достигать", "общаться", "убить", "пройти", "летать", "плавать",
     "решать", "возвращаться", "надеяться", "объяснять", "предлагать", "разрабатывать", "поддерживать",
     "танцевать", "рисовать", "бронировать", "бояться", "соглашаться", "проверять", "удалить",
-    "выбрать", "ловить", "спросить", "ответить", "колебаться")
+    "выбрать", "ловить", "спросить", "ответить", "колебаться")*/
 
 val randomRussianVerbsA1 = listOf("радовать", "грустить", "вдохновлять", "поддерживать", "уважать", "критиковать", "хвалить", "ругать",
     "шутить", "молчать", "кричать", "шептать", "жить", "беседовать", "бросать", "велеть",

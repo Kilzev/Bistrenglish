@@ -1,8 +1,11 @@
 package com.helphull.bistrenglish
 
+import TextToSpeechManager
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -24,12 +27,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.Locale
 import kotlin.random.Random
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : AppCompatActivity(){
+    private lateinit var ttsManager: TextToSpeechManager
     private lateinit var binding: ActivityMainBinding
-    
+
     //Блок переменных по темам
     private var rusAppWords = russianVerbsA1
     private var enAppWords = englishVerbsA1
@@ -118,6 +122,9 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        // Распределение в зависимости от выбранной темы
+
+        ttsManager = TextToSpeechManager(this)
         if(choosenTheme == 1){
             rusAppWords = russianVerbsA1
             enAppWords = englishVerbsA1
@@ -128,21 +135,26 @@ class MainActivity : AppCompatActivity() {
             enAppWords = englishNounsWordAroundA1
             randomRuAppWords = randomRussianNounsA1
         }
-
+        // Первая инициализация
         nextWord()
+
+        binding.btPlayText.setOnClickListener {
+            ttsManager.speak(enAppWords[wordNumber]) }
+
         binding.btRestart.setOnClickListener {
             if (errorEnWords.size == 0) {
 
                 Toast.makeText(this, "Ошибок нет!", Toast.LENGTH_SHORT).show()
                 Thread.sleep(delayInApp)
-                val intentCooseThemeActivity = Intent(this, CooseThemeActivity::class.java)
-                startActivity(intentCooseThemeActivity)
+                val intentChooseThemeActivity = Intent(this, ChooseThemeActivity::class.java)
+                startActivity(intentChooseThemeActivity)
                 finish()
             }
+            else{
             val intent = Intent(this, ErrorWorkActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
-            finish() // Закрываем текущую Activity
+            finish() }// Закрываем текущую Activity
         }
 
 
@@ -261,6 +273,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    override fun onDestroy() {
+        super.onDestroy()
+        ttsManager.shutdown()
+    }
+
 }
 
 
