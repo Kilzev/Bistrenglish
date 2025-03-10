@@ -11,19 +11,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.helphull.bistrenglish.databinding.ActivityMainBinding
+import com.helphull.bistrenglish.text.enAdjectivesA1
+import com.helphull.bistrenglish.text.enAdverbsA1
 import com.helphull.bistrenglish.text.enNounsFamilyA1
 import com.helphull.bistrenglish.text.enNounsSocialA1
+import com.helphull.bistrenglish.text.enNounsTouristA1
 import com.helphull.bistrenglish.text.englishNounsWordAroundA1
 
 import com.helphull.bistrenglish.text.englishVerbsA1
 import com.helphull.bistrenglish.text.errorEnWords
 import com.helphull.bistrenglish.text.errorRuWords
 import com.helphull.bistrenglish.text.familyWords
+import com.helphull.bistrenglish.text.randomRuAdjectivesA1
+import com.helphull.bistrenglish.text.randomRuAdverbsA1
 import com.helphull.bistrenglish.text.randomRuNounsSocialA1
+import com.helphull.bistrenglish.text.randomRuNounsTouristA1
 import com.helphull.bistrenglish.text.randomRussianNounsWorldA1
 import com.helphull.bistrenglish.text.randomRussianVerbsA1
+import com.helphull.bistrenglish.text.ruAdjectivesA1
+import com.helphull.bistrenglish.text.ruAdverbsA1
 import com.helphull.bistrenglish.text.ruNounsFamilyA1
 import com.helphull.bistrenglish.text.ruNounsSocialA1
+import com.helphull.bistrenglish.text.ruNounsTouristA1
 import com.helphull.bistrenglish.text.russianNounsWordAroundA1
 
 import com.helphull.bistrenglish.text.russianVerbsA1
@@ -149,6 +158,21 @@ class MainActivity : AppCompatActivity(){
                 rusAppWords = ruNounsSocialA1
                 enAppWords = enNounsSocialA1
                 randomRuAppWords = randomRuNounsSocialA1
+            }
+            5 -> {
+                rusAppWords = ruNounsTouristA1
+                enAppWords = enNounsTouristA1
+                randomRuAppWords = randomRuNounsTouristA1
+            }
+            6 -> {
+                rusAppWords = ruAdjectivesA1
+                enAppWords = enAdjectivesA1
+                randomRuAppWords = randomRuAdjectivesA1
+            }
+            7 -> {
+                rusAppWords = ruAdverbsA1
+                enAppWords = enAdverbsA1
+                randomRuAppWords = randomRuAdverbsA1
             }
         }
 
