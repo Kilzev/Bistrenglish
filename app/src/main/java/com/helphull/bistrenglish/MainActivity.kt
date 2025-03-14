@@ -10,7 +10,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.gson.Gson
 import com.helphull.bistrenglish.databinding.ActivityMainBinding
+import com.helphull.bistrenglish.progress.correctTheme
+import com.helphull.bistrenglish.progress.readJsonFile
+import com.helphull.bistrenglish.progress.updateJsonFile
 import com.helphull.bistrenglish.text.enAdjectivesA1
 import com.helphull.bistrenglish.text.enAdjectivesA2
 import com.helphull.bistrenglish.text.enAdverbsA1
@@ -27,7 +31,7 @@ import com.helphull.bistrenglish.text.englishNounsWordAroundA1
 import com.helphull.bistrenglish.text.englishVerbsA1
 import com.helphull.bistrenglish.text.errorEnWords
 import com.helphull.bistrenglish.text.errorRuWords
-import com.helphull.bistrenglish.text.familyWords
+import com.helphull.bistrenglish.text.randomRuNounsFamilyA1
 import com.helphull.bistrenglish.text.randomRuAdjectivesA1
 import com.helphull.bistrenglish.text.randomRuAdjectivesA2
 import com.helphull.bistrenglish.text.randomRuAdverbsA1
@@ -58,6 +62,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.io.File
 import kotlin.random.Random
 
 class MainActivity : AppCompatActivity(){
@@ -68,9 +73,12 @@ class MainActivity : AppCompatActivity(){
     private var rusAppWords = russianVerbsA1
     private var enAppWords = englishVerbsA1
     private var randomRuAppWords = randomRussianVerbsA1
-    
+    //val progress = readJsonFile(this)
+    /*private fun record()
+    {File(this.filesDir,"progress").writeText(Gson().toJson(progress))}*/
 
-    fun btPaintGreen() {
+
+    private fun btPaintGreen() {
         if (binding.btAnswer1.text == rusAppWords[wordNumber]) {
             binding.btAnswer1.setBackgroundColor(Color.GREEN)
         } else if (binding.btAnswer2.text == rusAppWords[wordNumber]) {
@@ -84,12 +92,81 @@ class MainActivity : AppCompatActivity(){
         }
     }
 
-    fun addErrors() {
+    private fun addErrors() {
+        val progress = readJsonFile(this)
         errorEnWords.add(enAppWords[wordNumber])
         errorRuWords.add(rusAppWords[wordNumber])
+
+        when (choosenLvl){
+            1 -> {when (choosenTheme) {
+                1 -> {
+                    progress!!.a1T1errorArray.add(wordNumber)
+                    updateJsonFile(this, progress)
+                }
+                2 -> {
+                    progress!!.a1T2errorArray.add(wordNumber)
+                    updateJsonFile(this, progress)
+                }
+                3 -> {
+                    progress!!.a1T3errorArray.add(wordNumber)
+                    updateJsonFile(this, progress)
+
+                }
+                4 -> {
+                    progress!!.a1T4errorArray.add(wordNumber)
+                    updateJsonFile(this, progress)
+
+                }
+                5 -> {
+                    progress!!.a1T5errorArray.add(wordNumber)
+                    updateJsonFile(this, progress)
+
+                }
+                6 -> {
+                    progress!!.a1T6errorArray.add(wordNumber)
+                    updateJsonFile(this, progress)
+
+                }
+                7 -> {
+                    progress!!.a1T7errorArray.add(wordNumber)
+                    updateJsonFile(this, progress)
+
+                }
+            }} //done
+            2 -> {when (choosenTheme) {
+                1 -> {
+                    progress!!.a2T1errorArray.add(wordNumber)
+                    updateJsonFile(this, progress)
+
+                }
+                2 -> {
+                    progress!!.a2T2errorArray.add(wordNumber)
+                    updateJsonFile(this, progress)
+
+                }
+                3 -> {
+                    progress!!.a2T3errorArray.add(wordNumber)
+                    updateJsonFile(this, progress)
+
+                }
+                4 -> {
+                    progress!!.a2T4errorArray.add(wordNumber)
+                    updateJsonFile(this, progress)
+
+                }
+                5 -> {
+                    progress!!.a2T5errorArray.add(wordNumber)
+                    updateJsonFile(this, progress)
+
+                }
+                6 -> {
+                    progress!!.a2T6errorArray.add(wordNumber)
+                    updateJsonFile(this, progress)
+                }
+            }}}
     }
 
-    fun unclickable() {
+    private fun unclickable() {
         binding.btAnswer1.isClickable = false
         binding.btAnswer2.isClickable = false
         binding.btAnswer3.isClickable = false
@@ -98,17 +175,33 @@ class MainActivity : AppCompatActivity(){
         binding.btIdk.isClickable = false
     }
 
-    var wordNumber = -1
+    private var wordNumber = -1
 
-    fun nextWord() {
+    private fun nextWord() {
+        val progress = readJsonFile(this)!!
         if (wordNumber >= rusAppWords.size - 1) {
             // Показываем кнопку "В начало"
-            binding.btRestart.visibility = View.VISIBLE
+            binding.btGoToErrorActivity.visibility = View.VISIBLE
             return // Прекращаем обновление слов
         }
 
         wordNumber += 1
-
+        when(correctTheme){
+            11-> {progress.a1T1 = wordNumber}
+            12-> {progress.a1T2 = wordNumber}
+            13-> {progress.a1T3 = wordNumber}
+            14-> {progress.a1T4 = wordNumber}
+            15-> {progress.a1T5 = wordNumber}
+            16-> {progress.a1T6 = wordNumber}
+            17-> {progress.a1T7 = wordNumber}
+            21-> {progress.a2T1 = wordNumber}
+            22-> {progress.a2T2 = wordNumber}
+            23-> {progress.a2T3 = wordNumber}
+            24-> {progress.a2T4 = wordNumber}
+            25-> {progress.a2T5 = wordNumber}
+            26-> {progress.a2T6 = wordNumber}
+        }
+        updateJsonFile(this, progress)
         // Обновляем actualWords каждый раз при вызове nextWord()
         val actualWords = mutableListOf(
             rusAppWords[wordNumber],
@@ -159,81 +252,130 @@ class MainActivity : AppCompatActivity(){
             insets
         }
         ttsManager = TextToSpeechManager(this)
+        //Инициализация файла сохранений
+        val progress = readJsonFile(this)!!
 
         // Распределение в зависимости от выбранной темы
         when (choosenLvl){
             1 -> {when (choosenTheme) {
                 1 -> {
+                    correctTheme = 11
                     rusAppWords = russianVerbsA1
                     enAppWords = englishVerbsA1
                     randomRuAppWords = randomRussianVerbsA1
+                    wordNumber = progress.a1T1-1
+                    errorEnWords = progress.a1T1errorArray.map { englishVerbsA1[it]}.toMutableList()
+                    errorRuWords = progress.a1T1errorArray.map { russianVerbsA1[it]}.toMutableList()
                 }
                 2 -> {
+                    correctTheme = 12
                     rusAppWords = russianNounsWordAroundA1
                     enAppWords = englishNounsWordAroundA1
                     randomRuAppWords = randomRussianNounsWorldA1
+                    wordNumber = progress.a1T2-1
+                    errorEnWords = progress.a1T2errorArray.map { englishNounsWordAroundA1[it]}.toMutableList()
+                    errorRuWords = progress.a1T2errorArray.map { russianNounsWordAroundA1[it]}.toMutableList()
                 }
                 3 -> {
+                    correctTheme = 13
                     rusAppWords = ruNounsFamilyA1
                     enAppWords = enNounsFamilyA1
-                    randomRuAppWords = familyWords
+                    randomRuAppWords = randomRuNounsFamilyA1
+                    wordNumber = progress.a1T3-1
+                    errorEnWords = progress.a1T3errorArray.map { enNounsFamilyA1[it]}.toMutableList()
+                    errorRuWords = progress.a1T3errorArray.map { ruNounsFamilyA1[it]}.toMutableList()
                 }
                 4 -> {
+                    correctTheme = 14
                     rusAppWords = ruNounsSocialA1
                     enAppWords = enNounsSocialA1
                     randomRuAppWords = randomRuNounsSocialA1
+                    wordNumber = progress.a1T4-1
+                    errorEnWords = progress.a1T4errorArray.map { enNounsSocialA1[it]}.toMutableList()
+                    errorRuWords = progress.a1T4errorArray.map { ruNounsSocialA1[it]}.toMutableList()
                 }
                 5 -> {
+                    correctTheme = 15
                     rusAppWords = ruNounsTouristA1
                     enAppWords = enNounsTouristA1
                     randomRuAppWords = randomRuNounsTouristA1
+                    wordNumber = progress.a1T5-1
+                    errorEnWords = progress.a1T5errorArray.map { enNounsTouristA1[it]}.toMutableList()
+                    errorRuWords = progress.a1T5errorArray.map { ruNounsTouristA1[it]}.toMutableList()
                 }
                 6 -> {
+                    correctTheme = 16
                     rusAppWords = ruAdjectivesA1
                     enAppWords = enAdjectivesA1
                     randomRuAppWords = randomRuAdjectivesA1
+                    wordNumber = progress.a1T6-1
+                    errorEnWords = progress.a1T6errorArray.map { enAdjectivesA1[it]}.toMutableList()
+                    errorRuWords = progress.a1T6errorArray.map { ruAdjectivesA1[it]}.toMutableList()
                 }
                 7 -> {
+                    correctTheme = 17
                     rusAppWords = ruAdverbsA1
                     enAppWords = enAdverbsA1
                     randomRuAppWords = randomRuAdverbsA1
+                    wordNumber = progress.a1T7-1
+                    errorEnWords = progress.a1T7errorArray.map { enAdverbsA1[it]}.toMutableList()
+                    errorRuWords = progress.a1T7errorArray.map { ruAdverbsA1[it]}.toMutableList()
                 }
             }} //done
             2 -> {when (choosenTheme) {
                 1 -> {
+                    correctTheme = 21
                     rusAppWords = ruVerbsA2
                     enAppWords = enVerbsA2
                     randomRuAppWords = randomRuVerbsA2
+                    wordNumber = progress.a2T1-1
+                    errorEnWords = progress.a2T1errorArray.map { enAdverbsA1[it]}.toMutableList()
+                    errorRuWords = progress.a2T1errorArray.map { ruAdverbsA1[it]}.toMutableList()
                 }
                 2 -> {
+                    correctTheme = 22
                     rusAppWords = ruNounsJobA2
                     enAppWords = enNounsJobA2
                     randomRuAppWords = randomRuNounsJobA2
+                    wordNumber = progress.a2T2-1
+                    errorEnWords = progress.a2T2errorArray.map { enAdverbsA1[it]}.toMutableList()
+                    errorRuWords = progress.a2T2errorArray.map { ruAdverbsA1[it]}.toMutableList()
                 }
                 3 -> {
+                    correctTheme = 23
                     rusAppWords = ruNounsRestA2
                     enAppWords = enNounsRestA2
                     randomRuAppWords = randomRuNounsRestA2
+                    wordNumber = progress.a2T3-1
+                    errorEnWords = progress.a2T3errorArray.map { enAdverbsA1[it]}.toMutableList()
+                    errorRuWords = progress.a2T3errorArray.map { ruAdverbsA1[it]}.toMutableList()
                 }
                 4 -> {
+                    correctTheme = 24
                     rusAppWords = ruNounsNatureA2
                     enAppWords = enNounsNatureA2
                     randomRuAppWords = randomRuNounsNatureA2
+                    wordNumber = progress.a2T4-1
+                    errorEnWords = progress.a2T4errorArray.map { enAdverbsA1[it]}.toMutableList()
+                    errorRuWords = progress.a2T4errorArray.map { ruAdverbsA1[it]}.toMutableList()
                 }
                 5 -> {
+                    correctTheme = 25
                     rusAppWords = ruAdjectivesA2
                     enAppWords = enAdjectivesA2
                     randomRuAppWords = randomRuAdjectivesA2
+                    wordNumber = progress.a2T5-1
+                    errorEnWords = progress.a2T5errorArray.map { enAdverbsA1[it]}.toMutableList()
+                    errorRuWords = progress.a2T5errorArray.map { ruAdverbsA1[it]}.toMutableList()
                 }
                 6 -> {
+                    correctTheme = 26
                     rusAppWords = ruAdverbsA2
                     enAppWords = enAdverbsA2
                     randomRuAppWords = randomRuAdverbsA2
-                }
-                7 -> {
-                    rusAppWords = ruAdverbsA1
-                    enAppWords = enAdverbsA1
-                    randomRuAppWords = randomRuAdverbsA1
+                    wordNumber = progress.a2T6-1
+                    errorEnWords = progress.a2T6errorArray.map { enAdverbsA1[it]}.toMutableList()
+                    errorRuWords = progress.a2T6errorArray.map { ruAdverbsA1[it]}.toMutableList()
                 }
             }} //done
             3 -> {when (choosenTheme) {
@@ -250,7 +392,7 @@ class MainActivity : AppCompatActivity(){
                 3 -> {
                     rusAppWords = ruNounsFamilyA1
                     enAppWords = enNounsFamilyA1
-                    randomRuAppWords = familyWords
+                    randomRuAppWords = randomRuNounsFamilyA1
                 }
                 4 -> {
                     rusAppWords = ruNounsSocialA1
@@ -287,7 +429,7 @@ class MainActivity : AppCompatActivity(){
                 3 -> {
                     rusAppWords = ruNounsFamilyA1
                     enAppWords = enNounsFamilyA1
-                    randomRuAppWords = familyWords
+                    randomRuAppWords = randomRuNounsFamilyA1
                 }
                 4 -> {
                     rusAppWords = ruNounsSocialA1
@@ -324,7 +466,7 @@ class MainActivity : AppCompatActivity(){
                 3 -> {
                     rusAppWords = ruNounsFamilyA1
                     enAppWords = enNounsFamilyA1
-                    randomRuAppWords = familyWords
+                    randomRuAppWords = randomRuNounsFamilyA1
                 }
                 4 -> {
                     rusAppWords = ruNounsSocialA1
@@ -361,7 +503,7 @@ class MainActivity : AppCompatActivity(){
                 3 -> {
                     rusAppWords = ruNounsFamilyA1
                     enAppWords = enNounsFamilyA1
-                    randomRuAppWords = familyWords
+                    randomRuAppWords = randomRuNounsFamilyA1
                 }
                 4 -> {
                     rusAppWords = ruNounsSocialA1
@@ -389,23 +531,127 @@ class MainActivity : AppCompatActivity(){
 
 
         // Первая инициализация
-        CoroutineScope(Dispatchers.Main).launch {
-            delay(500) // Задержка для инициализации TTS
-            nextWord()}
-
+        /*CoroutineScope(Dispatchers.Main).launch {
+            delay(10)*/ // Задержка для инициализации TTS(если на трубке будут проблемы, раскомментировать)
+            nextWord()//}
         binding.btPlayText.setOnClickListener {
             ttsManager.speak(enAppWords[wordNumber]) }
 
-        binding.btRestart.setOnClickListener {
+        binding.btGoToErrorActivity.setOnClickListener {
+            val progress = readJsonFile(this)!!
+            //TODO: Доделать обработчик решения без ошибок
             if (errorEnWords.size == 0) {
+                when(choosenLvl){ //Обнуление в случае решения без ошибок
+                    1 -> {when(choosenTheme){
+                        1 -> {progress.a1T1condition = 0
+                        progress.a1T1 = 0
+                        progress.a1T1errorArray.clear()
+                        val updateJson = Gson().toJson(progress)
+                        File(this.filesDir,"progress").writeText(updateJson)}
 
+                        2 ->{progress.a1T2condition = 0
+                            progress.a1T2 = 0
+                            progress.a1T2errorArray.clear()
+                            val updateJson = Gson().toJson(progress)
+                            File(this.filesDir,"progress").writeText(updateJson)}
+
+                        3 ->{progress.a1T3condition = 0
+                            progress.a1T3 = 0
+                            progress.a1T3errorArray.clear()
+                            val updateJson = Gson().toJson(progress)
+                            File(this.filesDir,"progress").writeText(updateJson)}
+
+                        4 ->{progress.a1T4condition = 5
+                            progress.a1T4 = 0
+                            progress.a1T4errorArray.clear()
+                            val updateJson = Gson().toJson(progress)
+                            File(this.filesDir,"progress").writeText(updateJson)}
+
+                        5 ->{progress.a1T5condition = 0
+                            progress.a1T5 = 0
+                            progress.a1T5errorArray.clear()
+                            val updateJson = Gson().toJson(progress)
+                            File(this.filesDir,"progress").writeText(updateJson)}
+
+                        6 ->{progress.a1T6condition = 0
+                            progress.a1T6 = 0
+                            progress.a1T6errorArray.clear()
+                            val updateJson = Gson().toJson(progress)
+                            File(this.filesDir,"progress").writeText(updateJson)}
+
+                        7 ->{progress.a1T7condition = 0
+                            progress.a1T7 = 0
+                            progress.a1T7errorArray.clear()
+                            val updateJson = Gson().toJson(progress)
+                            File(this.filesDir,"progress").writeText(updateJson)}
+
+
+                    }}
+                    2 -> {when(choosenTheme){
+                        1 -> {progress.a2T1condition = 0
+                            progress.a2T1 = 0
+                            progress.a2T1errorArray.clear()
+                            val updateJson = Gson().toJson(progress)
+                            File(this.filesDir,"progress").writeText(updateJson)}
+
+                        2 ->{progress.a2T2condition = 0
+                            progress.a2T2 = 0
+                            progress.a2T2errorArray.clear()
+                            val updateJson = Gson().toJson(progress)
+                            File(this.filesDir,"progress").writeText(updateJson)}
+
+                        3 ->{progress.a2T3condition = 0
+                            progress.a2T3 = 0
+                            progress.a2T3errorArray.clear()
+                            val updateJson = Gson().toJson(progress)
+                            File(this.filesDir,"progress").writeText(updateJson)}
+
+                        4 ->{progress.a2T4condition = 5
+                            progress.a2T4 = 0
+                            progress.a2T4errorArray.clear()
+                            val updateJson = Gson().toJson(progress)
+                            File(this.filesDir,"progress").writeText(updateJson)}
+
+                        5 ->{progress.a2T5condition = 0
+                            progress.a2T5 = 0
+                            progress.a2T5errorArray.clear()
+                            val updateJson = Gson().toJson(progress)
+                            File(this.filesDir,"progress").writeText(updateJson)}
+
+                        6 ->{progress.a2T6condition = 0
+                            progress.a2T6 = 0
+                            progress.a2T6errorArray.clear()
+                            val updateJson = Gson().toJson(progress)
+                            File(this.filesDir,"progress").writeText(updateJson)}}
+                }}
                 Toast.makeText(this, "Ошибок нет!", Toast.LENGTH_SHORT).show()
                 Thread.sleep(delayInApp)
+
                 val intentChooseThemeActivity = Intent(this, ChooseThemeActivity::class.java)
                 startActivity(intentChooseThemeActivity)
                 finish()
             }
             else{
+                when(choosenLvl){
+                    1 -> when(choosenTheme){
+                        1 -> {progress.a1T1condition = 1}
+                        2 -> {progress.a1T2condition = 1}
+                        3 -> {progress.a1T3condition = 1}
+                        4 -> {progress.a1T4condition = 1}
+                        5 -> {progress.a1T5condition = 1}
+                        6 -> {progress.a1T6condition = 1}
+                        7 -> {progress.a1T7condition = 1}
+                    }
+                    2 -> when(choosenTheme){
+                        1 -> {progress.a2T1condition = 1}
+                        2 -> {progress.a2T2condition = 1}
+                        3 -> {progress.a2T3condition = 1}
+                        4 -> {progress.a2T4condition = 1}
+                        5 -> {progress.a2T5condition = 1}
+                        6 -> {progress.a2T6condition = 1}
+                    }
+                }
+                updateJsonFile(this, progress)
             val intent = Intent(this, ErrorWorkActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
