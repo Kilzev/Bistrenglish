@@ -539,7 +539,7 @@ class MainActivity : AppCompatActivity(){
 
         binding.btGoToErrorActivity.setOnClickListener {
             val progress = readJsonFile(this)!!
-            //TODO: Доделать обработчик решения без ошибок
+            //TODO: Доделать обработчик решения без ошибок(A1 & A2 есть)
             if (errorEnWords.size == 0) {
                 when(choosenLvl){ //Обнуление в случае решения без ошибок
                     1 -> {when(choosenTheme){

@@ -15,9 +15,12 @@ import com.helphull.bistrenglish.databinding.ActivityErrorWorkBinding
 import com.helphull.bistrenglish.progress.readJsonFile
 import com.helphull.bistrenglish.progress.updateJsonFile
 import com.helphull.bistrenglish.text.enAdjectivesA1
+import com.helphull.bistrenglish.text.enAdjectivesA2
 import com.helphull.bistrenglish.text.enAdverbsA1
+import com.helphull.bistrenglish.text.enAdverbsA2
 import com.helphull.bistrenglish.text.enNounsFamilyA1
 import com.helphull.bistrenglish.text.enNounsJobA2
+import com.helphull.bistrenglish.text.enNounsNatureA2
 import com.helphull.bistrenglish.text.enNounsRestA2
 import com.helphull.bistrenglish.text.enNounsSocialA1
 import com.helphull.bistrenglish.text.enNounsTouristA1
@@ -27,9 +30,12 @@ import com.helphull.bistrenglish.text.englishVerbsA1
 import com.helphull.bistrenglish.text.errorEnWords
 import com.helphull.bistrenglish.text.errorRuWords
 import com.helphull.bistrenglish.text.randomRuAdjectivesA1
+import com.helphull.bistrenglish.text.randomRuAdjectivesA2
 import com.helphull.bistrenglish.text.randomRuAdverbsA1
+import com.helphull.bistrenglish.text.randomRuAdverbsA2
 import com.helphull.bistrenglish.text.randomRuNounsFamilyA1
 import com.helphull.bistrenglish.text.randomRuNounsJobA2
+import com.helphull.bistrenglish.text.randomRuNounsNatureA2
 import com.helphull.bistrenglish.text.randomRuNounsRestA2
 import com.helphull.bistrenglish.text.randomRuNounsSocialA1
 import com.helphull.bistrenglish.text.randomRuNounsTouristA1
@@ -37,9 +43,12 @@ import com.helphull.bistrenglish.text.randomRuVerbsA2
 import com.helphull.bistrenglish.text.randomRussianNounsWorldA1
 import com.helphull.bistrenglish.text.randomRussianVerbsA1
 import com.helphull.bistrenglish.text.ruAdjectivesA1
+import com.helphull.bistrenglish.text.ruAdjectivesA2
 import com.helphull.bistrenglish.text.ruAdverbsA1
+import com.helphull.bistrenglish.text.ruAdverbsA2
 import com.helphull.bistrenglish.text.ruNounsFamilyA1
 import com.helphull.bistrenglish.text.ruNounsJobA2
+import com.helphull.bistrenglish.text.ruNounsNatureA2
 import com.helphull.bistrenglish.text.ruNounsRestA2
 import com.helphull.bistrenglish.text.ruNounsSocialA1
 import com.helphull.bistrenglish.text.ruNounsTouristA1
@@ -65,6 +74,20 @@ class ErrorWorkActivity : AppCompatActivity() {
 
     private var wordNumber = -1
 
+    private fun paintGreen() {
+        if (binding.btAnswer1Error.text == errorRuWords[wordNumber]) {
+            binding.btAnswer1Error.setBackgroundColor(Color.GREEN)
+        } else if (binding.btAnswer2Error.text == errorRuWords[wordNumber]) {
+            binding.btAnswer2Error.setBackgroundColor(Color.GREEN)
+        } else if (binding.btAnswer3Error.text == errorRuWords[wordNumber]) {
+            binding.btAnswer3Error.setBackgroundColor(Color.GREEN)
+        } else if (binding.btAnswer4Error.text == errorRuWords[wordNumber]) {
+            binding.btAnswer4Error.setBackgroundColor(Color.GREEN)
+        } else if (binding.btAnswer5Error.text == errorRuWords[wordNumber]) {
+            binding.btAnswer5Error.setBackgroundColor(Color.GREEN)
+        }
+    }
+    
     private fun removeWord() {
         enWordsToRemove.add(errorEnWords[wordNumber])
         ruWordsToRemove.add(errorRuWords[wordNumber])
@@ -218,26 +241,26 @@ class ErrorWorkActivity : AppCompatActivity() {
 
                 4 -> {
                     errorEnWords =
-                        progress.a2T4errorArray.map { enNounsSocialA1[it] }.toMutableList()
+                        progress.a2T4errorArray.map { enNounsNatureA2[it] }.toMutableList()
                     errorRuWords =
-                        progress.a2T4errorArray.map { ruNounsSocialA1[it] }.toMutableList()
-                    randomRuErrorWords = randomRuNounsSocialA1
+                        progress.a2T4errorArray.map { ruNounsNatureA2[it] }.toMutableList()
+                    randomRuErrorWords = randomRuNounsNatureA2
                 }
 
                 5 -> {
                     errorEnWords =
-                        progress.a2T5errorArray.map { enNounsTouristA1[it] }.toMutableList()
+                        progress.a2T5errorArray.map { enAdjectivesA2[it] }.toMutableList()
                     errorRuWords =
-                        progress.a2T5errorArray.map { ruNounsTouristA1[it] }.toMutableList()
-                    randomRuErrorWords = randomRuNounsTouristA1
+                        progress.a2T5errorArray.map { ruAdjectivesA2[it] }.toMutableList()
+                    randomRuErrorWords = randomRuAdjectivesA2
                 }
 
                 6 -> {
                     errorEnWords =
-                        progress.a2T6errorArray.map { enAdjectivesA1[it] }.toMutableList()
+                        progress.a2T6errorArray.map { enAdverbsA2[it] }.toMutableList()
                     errorRuWords =
-                        progress.a2T6errorArray.map { ruAdjectivesA1[it] }.toMutableList()
-                    randomRuErrorWords = randomRuAdjectivesA1
+                        progress.a2T6errorArray.map { ruAdverbsA2[it] }.toMutableList()
+                    randomRuErrorWords = randomRuAdverbsA2
                 }
             }
         }
@@ -285,15 +308,15 @@ class ErrorWorkActivity : AppCompatActivity() {
                 removeWord()
                 Log.d("Correct", "$enWordsToRemove")
                 CoroutineScope(Dispatchers.Main).launch {
-                    delay(1200) // Задержка 1.2 секунды
+                    delay(delayInApp) // Задержка 1.2 секунды
                     nextWord()  // Переход к следующему слову
                 }
             } else {
-
                 unclickable()
                 binding.btAnswer1Error.setBackgroundColor(Color.RED)
+                paintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
-                    delay(1200) // Задержка 1.2 секунды
+                    delay(delayInApp) // Задержка 1.2 секунды
                     nextWord()  // Переход к следующему слову
                 }
             }
@@ -306,15 +329,15 @@ class ErrorWorkActivity : AppCompatActivity() {
                 removeWord()
                 Log.d("Correct", "$enWordsToRemove")
                 CoroutineScope(Dispatchers.Main).launch {
-                    delay(1200) // Задержка 1.2 секунды
+                    delay(delayInApp) // Задержка 1.2 секунды
                     nextWord()  // Переход к следующему слову
                 }
             } else {
-
                 unclickable()
                 binding.btAnswer2Error.setBackgroundColor(Color.RED)
+                paintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
-                    delay(1200) // Задержка 1.2 секунды
+                    delay(delayInApp) // Задержка 1.2 секунды
                     nextWord()  // Переход к следующему слову
                 }
             }
@@ -327,14 +350,15 @@ class ErrorWorkActivity : AppCompatActivity() {
                 removeWord()
                 Log.d("Correct", "$enWordsToRemove")
                 CoroutineScope(Dispatchers.Main).launch {
-                    delay(1200) // Задержка 1.2 секунды
+                    delay(delayInApp) // Задержка 1.2 секунды
                     nextWord()  // Переход к следующему слову
                 }
             } else {
                 unclickable()
                 binding.btAnswer3Error.setBackgroundColor(Color.RED)
+                paintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
-                    delay(1200) // Задержка 1.2 секунды
+                    delay(delayInApp) // Задержка 1.2 секунды
                     nextWord()  // Переход к следующему слову
                 }
             }
@@ -348,14 +372,15 @@ class ErrorWorkActivity : AppCompatActivity() {
                 removeWord()
                 Log.d("Correct", "$enWordsToRemove")
                 CoroutineScope(Dispatchers.Main).launch {
-                    delay(1200) // Задержка 1.2 секунды
+                    delay(delayInApp) // Задержка 1.2 секунды
                     nextWord()  // Переход к следующему слову
                 }
             } else {
                 unclickable()
                 binding.btAnswer4Error.setBackgroundColor(Color.RED)
+                paintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
-                    delay(1200) // Задержка 1.2 секунды
+                    delay(delayInApp) // Задержка 1.2 секунды
                     nextWord()  // Переход к следующему слову
                 }
             }
@@ -367,14 +392,15 @@ class ErrorWorkActivity : AppCompatActivity() {
                 removeWord()
                 Log.d("Correct", "$enWordsToRemove")
                 CoroutineScope(Dispatchers.Main).launch {
-                    delay(1200) // Задержка 1.2 секунды
+                    delay(delayInApp) // Задержка 1.2 секунды
                     nextWord()  // Переход к следующему слову
                 }
             } else {
                 unclickable()
                 binding.btAnswer5Error.setBackgroundColor(Color.RED)
+                paintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
-                    delay(1200) // Задержка 1.2 секунды
+                    delay(delayInApp) // Задержка 1.2 секунды
                     nextWord()  // Переход к следующему слову
                 }
             }
