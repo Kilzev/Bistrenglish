@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity(){
         errorRuWords.add(rusAppWords[wordNumber])
 
         when (choosenLvl){
-            1 -> {when (choosenTheme) {
+            1 -> {when (correctTheme) {
                 1 -> {
                     progress!!.a1T1errorArray.add(wordNumber)
                     updateJsonFile(this, progress)

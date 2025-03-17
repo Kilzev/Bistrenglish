@@ -236,7 +236,6 @@ class ErrorWorkActivity : AppCompatActivity() {
                     errorRuWords =
                         progress.a2T3errorArray.map { ruNounsRestA2[it] }.toMutableList()
                     randomRuErrorWords = randomRuNounsRestA2
-                    //TODO: Доделать эту шляпу
                 }
 
                 4 -> {

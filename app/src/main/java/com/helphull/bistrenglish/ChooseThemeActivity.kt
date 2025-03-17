@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.helphull.bistrenglish.databinding.ActivityCooseThemeBinding
+import com.helphull.bistrenglish.progress.correctTheme
 import com.helphull.bistrenglish.progress.createJsonFile
 import com.helphull.bistrenglish.progress.readJsonFile
 
@@ -56,6 +57,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                 val intentMainActivity = Intent(this, MainActivity::class.java)
                                 startActivity(intentMainActivity)
                                 choosenTheme = 1
+                                correctTheme = 11
                             }
 
                             1 -> {
@@ -63,6 +65,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                     Intent(this, ErrorWorkActivity::class.java)
                                 startActivity(intentErrorWorkActivity)
                                 choosenTheme = 1
+                                correctTheme = 11
                             }
                         }
                     }
@@ -72,6 +75,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                 val intentMainActivity = Intent(this, MainActivity::class.java)
                                 startActivity(intentMainActivity)
                                 choosenTheme = 1
+                                correctTheme = 21
                             }
 
                             1 -> {
@@ -79,12 +83,11 @@ class ChooseThemeActivity : AppCompatActivity() {
                                     Intent(this, ErrorWorkActivity::class.java)
                                 startActivity(intentErrorWorkActivity)
                                 choosenTheme = 1
+                                correctTheme = 21
                             }
                         }
                     }
-
                 }
-
             }
             binding.btTheme2.setOnClickListener {
                 when (choosenLvl) {
@@ -94,6 +97,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                 val intentMainActivity = Intent(this, MainActivity::class.java)
                                 startActivity(intentMainActivity)
                                 choosenTheme = 2
+                                correctTheme = 12
                             }
 
                             1 -> {
@@ -101,6 +105,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                     Intent(this, ErrorWorkActivity::class.java)
                                 startActivity(intentErrorWorkActivity)
                                 choosenTheme = 2
+                                correctTheme = 12
                             }
                         }
                     }
@@ -110,6 +115,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                 val intentMainActivity = Intent(this, MainActivity::class.java)
                                 startActivity(intentMainActivity)
                                 choosenTheme = 2
+                                correctTheme = 22
                             }
 
                             1 -> {
@@ -117,6 +123,8 @@ class ChooseThemeActivity : AppCompatActivity() {
                                     Intent(this, ErrorWorkActivity::class.java)
                                 startActivity(intentErrorWorkActivity)
                                 choosenTheme = 2
+                                correctTheme = 22
+
                             }
                         }
                     }
@@ -130,6 +138,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                 val intentMainActivity = Intent(this, MainActivity::class.java)
                                 startActivity(intentMainActivity)
                                 choosenTheme = 3
+                                correctTheme = 13
                             }
 
                             1 -> {
@@ -137,6 +146,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                     Intent(this, ErrorWorkActivity::class.java)
                                 startActivity(intentErrorWorkActivity)
                                 choosenTheme = 3
+                                correctTheme = 13
                             }
                         }
                     }
@@ -146,6 +156,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                 val intentMainActivity = Intent(this, MainActivity::class.java)
                                 startActivity(intentMainActivity)
                                 choosenTheme = 2
+                                correctTheme = 23
                             }
 
                             1 -> {
@@ -153,6 +164,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                     Intent(this, ErrorWorkActivity::class.java)
                                 startActivity(intentErrorWorkActivity)
                                 choosenTheme = 2
+                                correctTheme = 23
                             }
                         }
                     }
@@ -166,6 +178,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                 val intentMainActivity = Intent(this, MainActivity::class.java)
                                 startActivity(intentMainActivity)
                                 choosenTheme = 4
+                                correctTheme = 14
                             }
 
                             1 -> {
@@ -173,6 +186,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                     Intent(this, ErrorWorkActivity::class.java)
                                 startActivity(intentErrorWorkActivity)
                                 choosenTheme = 4
+                                correctTheme = 14
                             }
                         }
                     }
@@ -182,6 +196,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                 val intentMainActivity = Intent(this, MainActivity::class.java)
                                 startActivity(intentMainActivity)
                                 choosenTheme = 4
+                                correctTheme = 24
                             }
 
                             1 -> {
@@ -189,6 +204,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                     Intent(this, ErrorWorkActivity::class.java)
                                 startActivity(intentErrorWorkActivity)
                                 choosenTheme = 4
+                                correctTheme = 24
                             }
                         }
                     }
@@ -202,6 +218,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                 val intentMainActivity = Intent(this, MainActivity::class.java)
                                 startActivity(intentMainActivity)
                                 choosenTheme = 5
+                                correctTheme = 15
                             }
 
                             1 -> {
@@ -209,6 +226,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                     Intent(this, ErrorWorkActivity::class.java)
                                 startActivity(intentErrorWorkActivity)
                                 choosenTheme = 5
+                                correctTheme = 15
                             }
                         }
                     }
@@ -218,6 +236,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                 val intentMainActivity = Intent(this, MainActivity::class.java)
                                 startActivity(intentMainActivity)
                                 choosenTheme = 5
+                                correctTheme = 15
                             }
 
                             1 -> {
@@ -225,6 +244,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                     Intent(this, ErrorWorkActivity::class.java)
                                 startActivity(intentErrorWorkActivity)
                                 choosenTheme = 5
+                                correctTheme = 15
                             }
                         }
                     }
@@ -238,6 +258,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                 val intentMainActivity = Intent(this, MainActivity::class.java)
                                 startActivity(intentMainActivity)
                                 choosenTheme = 6
+                                correctTheme = 16
                             }
 
                             1 -> {
@@ -245,6 +266,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                     Intent(this, ErrorWorkActivity::class.java)
                                 startActivity(intentErrorWorkActivity)
                                 choosenTheme = 6
+                                correctTheme = 16
                             }
                         }
                     }
@@ -254,6 +276,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                 val intentMainActivity = Intent(this, MainActivity::class.java)
                                 startActivity(intentMainActivity)
                                 choosenTheme = 6
+                                correctTheme = 26
                             }
 
                             1 -> {
@@ -261,6 +284,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                     Intent(this, ErrorWorkActivity::class.java)
                                 startActivity(intentErrorWorkActivity)
                                 choosenTheme = 6
+                                correctTheme = 26
                             }
                         }
                     }
@@ -274,6 +298,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                 val intentMainActivity = Intent(this, MainActivity::class.java)
                                 startActivity(intentMainActivity)
                                 choosenTheme = 7
+                                correctTheme = 17
                             }
 
                             1 -> {
@@ -281,6 +306,7 @@ class ChooseThemeActivity : AppCompatActivity() {
                                     Intent(this, ErrorWorkActivity::class.java)
                                 startActivity(intentErrorWorkActivity)
                                 choosenTheme = 7
+                                correctTheme = 17
                             }
                         }
                     }
