@@ -11,7 +11,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.gson.Gson
 import com.helphull.bistrenglish.databinding.ActivityErrorWorkBinding
+import com.helphull.bistrenglish.progress.Progress
+import com.helphull.bistrenglish.progress.correctTheme
 import com.helphull.bistrenglish.progress.readJsonFile
 import com.helphull.bistrenglish.progress.updateJsonFile
 import com.helphull.bistrenglish.text.enAdjectivesA1
@@ -59,6 +62,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.io.File
 import kotlin.random.Random
 
 class ErrorWorkActivity : AppCompatActivity() {
@@ -111,7 +115,6 @@ class ErrorWorkActivity : AppCompatActivity() {
 
         // Обновляем actualWords каждый раз при вызове nextWord()
         val actualWords = mutableListOf(
-            //TODO: Заменить слова из первой темы, на рандомные из каждой
             errorRuWords[wordNumber],
             randomRuErrorWords[Random.nextInt(randomRuErrorWords.size)],
             randomRuErrorWords[Random.nextInt(randomRuErrorWords.size)],
@@ -155,114 +158,65 @@ class ErrorWorkActivity : AppCompatActivity() {
             insets
         }
         val progress = readJsonFile(this)!!
-        when (choosenLvl) { //TODO: Доделать для остальных тем загрузку ошибок
-            1 -> when (choosenTheme) {
-                1 -> {
-                    errorEnWords =
-                        progress.a1T1errorArray.map { englishVerbsA1[it] }.toMutableList()
-                    errorRuWords =
-                        progress.a1T1errorArray.map { russianVerbsA1[it] }.toMutableList()
-                    randomRuErrorWords = randomRussianVerbsA1
 
-                }
+// Мапы для хранения данных // TODO Добавить сюда
+        val enWordsMap = mapOf(
+            11 to englishVerbsA1, 12 to englishNounsWordAroundA1, 13 to enNounsFamilyA1,
+            14 to enNounsSocialA1, 15 to enNounsTouristA1, 16 to enAdjectivesA1, 17 to enAdverbsA1,
+            21 to enVerbsA2, 22 to enNounsJobA2, 23 to enNounsRestA2, 24 to enNounsNatureA2,
+            25 to enAdjectivesA2, 26 to enAdverbsA2
+        )
 
-                2 -> {
-                    errorEnWords =
-                        progress.a1T2errorArray.map { englishNounsWordAroundA1[it] }.toMutableList()
-                    errorRuWords =
-                        progress.a1T2errorArray.map { russianNounsWordAroundA1[it] }.toMutableList()
-                    randomRuErrorWords = randomRussianNounsWorldA1
-                }
+        val ruWordsMap = mapOf(
+            11 to russianVerbsA1, 12 to russianNounsWordAroundA1, 13 to ruNounsFamilyA1,
+            14 to ruNounsSocialA1, 15 to ruNounsTouristA1, 16 to ruAdjectivesA1, 17 to ruAdverbsA1,
+            21 to ruVerbsA2, 22 to ruNounsJobA2, 23 to ruNounsRestA2, 24 to ruNounsNatureA2,
+            25 to ruAdjectivesA2, 26 to ruAdverbsA2
+        )
 
-                3 -> {
-                    errorEnWords =
-                        progress.a1T3errorArray.map { enNounsFamilyA1[it] }.toMutableList()
-                    errorRuWords =
-                        progress.a1T3errorArray.map { ruNounsFamilyA1[it] }.toMutableList()
-                    randomRuErrorWords = randomRuNounsFamilyA1
-                }
+        val randomRuWordsMap = mapOf(
+            11 to randomRussianVerbsA1,
+            12 to randomRussianNounsWorldA1,
+            13 to randomRuNounsFamilyA1,
+            14 to randomRuNounsSocialA1,
+            15 to randomRuNounsTouristA1,
+            16 to randomRuAdjectivesA1,
+            17 to randomRuAdverbsA1,
+            21 to randomRuVerbsA2,
+            22 to randomRuNounsJobA2,
+            23 to randomRuNounsRestA2,
+            24 to randomRuNounsNatureA2,
+            25 to randomRuAdjectivesA2,
+            26 to randomRuAdverbsA2
+        )
 
-                4 -> {
-                    errorEnWords =
-                        progress.a1T4errorArray.map { enNounsSocialA1[it] }.toMutableList()
-                    errorRuWords =
-                        progress.a1T4errorArray.map { ruNounsSocialA1[it] }.toMutableList()
-                    randomRuErrorWords = randomRuNounsSocialA1
-                }
+        val errorArrayMap = mapOf(
+            11 to progress.a1T1errorArray,
+            12 to progress.a1T2errorArray,
+            13 to progress.a1T3errorArray,
+            14 to progress.a1T4errorArray,
+            15 to progress.a1T5errorArray,
+            16 to progress.a1T6errorArray,
+            17 to progress.a1T7errorArray,
+            21 to progress.a2T1errorArray,
+            22 to progress.a2T2errorArray,
+            23 to progress.a2T3errorArray,
+            24 to progress.a2T4errorArray,
+            25 to progress.a2T5errorArray,
+            26 to progress.a2T6errorArray
+        )
 
-                5 -> {
-                    errorEnWords =
-                        progress.a1T5errorArray.map { enNounsTouristA1[it] }.toMutableList()
-                    errorRuWords =
-                        progress.a1T5errorArray.map { ruNounsTouristA1[it] }.toMutableList()
-                    randomRuErrorWords = randomRuNounsTouristA1
-                }
 
-                6 -> {
-                    errorEnWords =
-                        progress.a1T6errorArray.map { enAdjectivesA1[it] }.toMutableList()
-                    errorRuWords =
-                        progress.a1T6errorArray.map { ruAdjectivesA1[it] }.toMutableList()
-                    randomRuErrorWords = randomRuAdjectivesA1
-                }
+// Получаем данные по ключу
+        val errorArray = errorArrayMap[correctTheme] ?: emptyList()
+        val enWords = enWordsMap[correctTheme] ?: emptyList()
+        val ruWords = ruWordsMap[correctTheme] ?: emptyList()
+        val randomRuWords = randomRuWordsMap[correctTheme] ?: emptyList()
 
-                7 -> {
-                    errorEnWords = progress.a1T7errorArray.map { enAdverbsA1[it] }.toMutableList()
-                    errorRuWords = progress.a1T7errorArray.map { ruAdverbsA1[it] }.toMutableList()
-                    randomRuErrorWords = randomRuAdverbsA1
-                }
-            }
-            2 -> when (choosenTheme){
-                1 -> {
-                    errorEnWords =
-                        progress.a2T1errorArray.map { enVerbsA2[it] }.toMutableList()
-                    errorRuWords =
-                        progress.a2T1errorArray.map { ruVerbsA2[it] }.toMutableList()
-                    randomRuErrorWords = randomRuVerbsA2
-
-                }
-
-                2 -> {
-                    errorEnWords =
-                        progress.a2T2errorArray.map { enNounsJobA2[it] }.toMutableList()
-                    errorRuWords =
-                        progress.a2T2errorArray.map { ruNounsJobA2[it] }.toMutableList()
-                    randomRuErrorWords = randomRuNounsJobA2
-                }
-
-                3 -> {
-                    errorEnWords =
-                        progress.a2T3errorArray.map { enNounsRestA2[it] }.toMutableList()
-                    errorRuWords =
-                        progress.a2T3errorArray.map { ruNounsRestA2[it] }.toMutableList()
-                    randomRuErrorWords = randomRuNounsRestA2
-                }
-
-                4 -> {
-                    errorEnWords =
-                        progress.a2T4errorArray.map { enNounsNatureA2[it] }.toMutableList()
-                    errorRuWords =
-                        progress.a2T4errorArray.map { ruNounsNatureA2[it] }.toMutableList()
-                    randomRuErrorWords = randomRuNounsNatureA2
-                }
-
-                5 -> {
-                    errorEnWords =
-                        progress.a2T5errorArray.map { enAdjectivesA2[it] }.toMutableList()
-                    errorRuWords =
-                        progress.a2T5errorArray.map { ruAdjectivesA2[it] }.toMutableList()
-                    randomRuErrorWords = randomRuAdjectivesA2
-                }
-
-                6 -> {
-                    errorEnWords =
-                        progress.a2T6errorArray.map { enAdverbsA2[it] }.toMutableList()
-                    errorRuWords =
-                        progress.a2T6errorArray.map { ruAdverbsA2[it] }.toMutableList()
-                    randomRuErrorWords = randomRuAdverbsA2
-                }
-            }
-        }
+// Заполняем errorEnWords и errorRuWords
+        errorEnWords = errorArray.map { enWords[it] }.toMutableList()
+        errorRuWords = errorArray.map { ruWords[it] }.toMutableList()
+        randomRuErrorWords = randomRuWords
         nextWord()
         ttsManager = TextToSpeechManager(this)
         binding.btPlayTextError.setOnClickListener { ttsManager.speak(errorEnWords[wordNumber]) }
@@ -270,25 +224,67 @@ class ErrorWorkActivity : AppCompatActivity() {
             errorEnWords.removeAll(enWordsToRemove)
             errorRuWords.removeAll(ruWordsToRemove)
 
-            when(choosenLvl){ //TODO: Решиить вопрос с удалением прорешенных слов
+           /* when(choosenLvl){ //TODO: Решиить вопрос с удалением прорешенных слов
                 1 -> {when(choosenTheme){
                     1 -> {
                         indexOfSolvedErrors.sortedDescending().forEach{ index ->
                         progress.a1T1errorArray.removeAt(index)}
                         updateJsonFile(this, progress)
                     }}
-                }}
+                }}*/
+            val mapCorrectWord = mapOf(
+                11 to Progress::a1T1,
+                12 to Progress::a1T2,
+                13 to Progress::a1T3,
+                14 to Progress::a1T4,
+                15 to Progress::a1T5,
+                16 to Progress::a1T6,
+                17 to Progress::a1T7,
+                21 to Progress::a2T1,
+                22 to Progress::a2T2,
+                23 to Progress::a2T3,
+                24 to Progress::a2T4,
+                25 to Progress::a2T5,
+                26 to Progress::a2T6
+            )
+            @Suppress("NAME_SHADOWING") val errorArrayMapping = mapOf(
+                11 to Progress::a1T1errorArray,
+                12 to Progress::a1T2errorArray,
+                13 to Progress::a1T3errorArray,
+                14 to Progress::a1T4errorArray,
+                15 to Progress::a1T5errorArray,
+                16 to Progress::a1T6errorArray,
+                17 to Progress::a1T7errorArray,
+                21 to Progress::a2T1errorArray,
+                22 to Progress::a2T2errorArray,
+                23 to Progress::a2T3errorArray,
+                24 to Progress::a2T4errorArray,
+                25 to Progress::a2T5errorArray,
+                26 to Progress::a2T6errorArray
+            )
 
-            if (errorEnWords.size == 0){
-                when(choosenLvl){
-                    1 -> when(choosenTheme){
-                        1->{progress.a1T1condition = 0
-                        progress.a1T1errorArray.clear()
-                        progress.a1T1 = 0
-                        updateJsonFile(this,progress)
-                        }
-                    }
-                }
+            val conditionMap = mapOf(
+                11 to Progress::a1T1condition,
+                12 to Progress::a1T2condition,
+                13 to Progress::a1T3condition,
+                14 to Progress::a1T4condition,
+                15 to Progress::a1T5condition,
+                16 to Progress::a1T6condition,
+                17 to Progress::a1T7condition,
+                21 to Progress::a2T1condition,
+                22 to Progress::a2T2condition,
+                23 to Progress::a2T3condition,
+                24 to Progress::a2T4condition,
+                25 to Progress::a2T5condition,
+                26 to Progress::a2T6condition,
+            )
+            if (errorEnWords.size == 0) {
+                conditionMap[correctTheme]?.set(progress, 0)
+                mapCorrectWord[correctTheme]?.set(progress, 0)
+                errorArrayMapping[correctTheme]?.get(progress)?.clear()
+                val updateJson = Gson().toJson(progress)
+                File(this.filesDir,"progress").writeText(updateJson)
+
                 Toast.makeText(this, "Ошибки прорешаны!", Toast.LENGTH_SHORT).show()
                 Thread.sleep(delayInApp)
                 val intentChooseThemeActivity = Intent(this, ChooseThemeActivity::class.java)
