@@ -18,15 +18,21 @@ import com.helphull.bistrenglish.progress.readJsonFile
 import com.helphull.bistrenglish.progress.updateJsonFile
 import com.helphull.bistrenglish.text.enAdjectivesA1
 import com.helphull.bistrenglish.text.enAdjectivesA2
+import com.helphull.bistrenglish.text.enAdjectivesB1
 import com.helphull.bistrenglish.text.enAdverbsA1
 import com.helphull.bistrenglish.text.enAdverbsA2
+import com.helphull.bistrenglish.text.enAdverbsB1
 import com.helphull.bistrenglish.text.enNounsFamilyA1
 import com.helphull.bistrenglish.text.enNounsJobA2
 import com.helphull.bistrenglish.text.enNounsNatureA2
+import com.helphull.bistrenglish.text.enNounsPostCovidB1
 import com.helphull.bistrenglish.text.enNounsRestA2
 import com.helphull.bistrenglish.text.enNounsSocialA1
+import com.helphull.bistrenglish.text.enNounsSuccessB1
+import com.helphull.bistrenglish.text.enNounsTeensB1
 import com.helphull.bistrenglish.text.enNounsTouristA1
 import com.helphull.bistrenglish.text.enVerbsA2
+import com.helphull.bistrenglish.text.enVerbsB1
 import com.helphull.bistrenglish.text.englishNounsWordAroundA1
 
 import com.helphull.bistrenglish.text.englishVerbsA1
@@ -35,27 +41,39 @@ import com.helphull.bistrenglish.text.errorRuWords
 import com.helphull.bistrenglish.text.randomRuNounsFamilyA1
 import com.helphull.bistrenglish.text.randomRuAdjectivesA1
 import com.helphull.bistrenglish.text.randomRuAdjectivesA2
+import com.helphull.bistrenglish.text.randomRuAdjectivesB1
 import com.helphull.bistrenglish.text.randomRuAdverbsA1
 import com.helphull.bistrenglish.text.randomRuAdverbsA2
+import com.helphull.bistrenglish.text.randomRuAdverbsB1
 import com.helphull.bistrenglish.text.randomRuNounsJobA2
 import com.helphull.bistrenglish.text.randomRuNounsNatureA2
+import com.helphull.bistrenglish.text.randomRuNounsPostCovidB1
 import com.helphull.bistrenglish.text.randomRuNounsRestA2
 import com.helphull.bistrenglish.text.randomRuNounsSocialA1
+import com.helphull.bistrenglish.text.randomRuNounsSuccessB1
+import com.helphull.bistrenglish.text.randomRuNounsTeensB1
 import com.helphull.bistrenglish.text.randomRuNounsTouristA1
 import com.helphull.bistrenglish.text.randomRuVerbsA2
+import com.helphull.bistrenglish.text.randomRuVerbsB1
 import com.helphull.bistrenglish.text.randomRussianNounsWorldA1
 import com.helphull.bistrenglish.text.randomRussianVerbsA1
 import com.helphull.bistrenglish.text.ruAdjectivesA1
 import com.helphull.bistrenglish.text.ruAdjectivesA2
+import com.helphull.bistrenglish.text.ruAdjectivesB1
 import com.helphull.bistrenglish.text.ruAdverbsA1
 import com.helphull.bistrenglish.text.ruAdverbsA2
+import com.helphull.bistrenglish.text.ruAdverbsB1
 import com.helphull.bistrenglish.text.ruNounsFamilyA1
 import com.helphull.bistrenglish.text.ruNounsJobA2
 import com.helphull.bistrenglish.text.ruNounsNatureA2
+import com.helphull.bistrenglish.text.ruNounsPostCovidB1
 import com.helphull.bistrenglish.text.ruNounsRestA2
 import com.helphull.bistrenglish.text.ruNounsSocialA1
+import com.helphull.bistrenglish.text.ruNounsSuccessB1
+import com.helphull.bistrenglish.text.ruNounsTeensB1
 import com.helphull.bistrenglish.text.ruNounsTouristA1
 import com.helphull.bistrenglish.text.ruVerbsA2
+import com.helphull.bistrenglish.text.ruVerbsB1
 import com.helphull.bistrenglish.text.russianNounsWordAroundA1
 
 import com.helphull.bistrenglish.text.russianVerbsA1
@@ -74,9 +92,6 @@ class MainActivity : AppCompatActivity(){
     private var rusAppWords = russianVerbsA1
     private var enAppWords = englishVerbsA1
     private var randomRuAppWords = randomRussianVerbsA1
-    //val progress = readJsonFile(this)
-    /*private fun record()
-    {File(this.filesDir,"progress").writeText(Gson().toJson(progress))}*/
 
 
     private fun btPaintGreen() {
@@ -111,7 +126,13 @@ class MainActivity : AppCompatActivity(){
             23 to progress.a2T3errorArray,
             24 to progress.a2T4errorArray,
             25 to progress.a2T5errorArray,
-            26 to progress.a2T6errorArray
+            26 to progress.a2T6errorArray,
+            31 to progress.b1T1errorArray,
+            32 to progress.b1T2errorArray,
+            33 to progress.b1T3errorArray,
+            34 to progress.b1T4errorArray,
+            35 to progress.b1T5errorArray,
+            36 to progress.b1T6errorArray,
         )
 
         errorArrayMapping[correctTheme]?.add(wordNumber)
@@ -138,20 +159,86 @@ class MainActivity : AppCompatActivity(){
         }
 
         wordNumber += 1
-        when(correctTheme){ //TODO Добавить сюда
-            11-> {progress.a1T1 = wordNumber}
-            12-> {progress.a1T2 = wordNumber}
-            13-> {progress.a1T3 = wordNumber}
-            14-> {progress.a1T4 = wordNumber}
-            15-> {progress.a1T5 = wordNumber}
-            16-> {progress.a1T6 = wordNumber}
-            17-> {progress.a1T7 = wordNumber}
-            21-> {progress.a2T1 = wordNumber}
-            22-> {progress.a2T2 = wordNumber}
-            23-> {progress.a2T3 = wordNumber}
-            24-> {progress.a2T4 = wordNumber}
-            25-> {progress.a2T5 = wordNumber}
-            26-> {progress.a2T6 = wordNumber}
+        // TTS на запуск
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(600)
+            ttsManager.speak(enAppWords[wordNumber])}
+
+        when (correctTheme) { //TODO Добавить сюда
+            11 -> {
+                progress.a1T1 = wordNumber
+            }
+
+            12 -> {
+                progress.a1T2 = wordNumber
+            }
+
+            13 -> {
+                progress.a1T3 = wordNumber
+            }
+
+            14 -> {
+                progress.a1T4 = wordNumber
+            }
+
+            15 -> {
+                progress.a1T5 = wordNumber
+            }
+
+            16 -> {
+                progress.a1T6 = wordNumber
+            }
+
+            17 -> {
+                progress.a1T7 = wordNumber
+            }
+
+            21 -> {
+                progress.a2T1 = wordNumber
+            }
+
+            22 -> {
+                progress.a2T2 = wordNumber
+            }
+
+            23 -> {
+                progress.a2T3 = wordNumber
+            }
+
+            24 -> {
+                progress.a2T4 = wordNumber
+            }
+
+            25 -> {
+                progress.a2T5 = wordNumber
+            }
+
+            26 -> {
+                progress.a2T6 = wordNumber
+            }
+            31 -> {
+                progress.b1T1 = wordNumber
+            }
+
+            32 -> {
+                progress.b1T2 = wordNumber
+            }
+
+            33 -> {
+                progress.b1T3 = wordNumber
+            }
+
+            34 -> {
+                progress.b1T4 = wordNumber
+            }
+
+            35 -> {
+                progress.b1T5 = wordNumber
+            }
+
+            36 -> {
+                progress.b1T6 = wordNumber
+            }
         }
         updateJsonFile(this, progress)
         // Обновляем actualWords каждый раз при вызове nextWord()
@@ -165,7 +252,6 @@ class MainActivity : AppCompatActivity(){
 
         actualWords.shuffle() // Раскомментируйте, если нужно перемешать слова
 
-        fun updateUI() {
             // Обновляем текст кнопок и другие элементы UI
             binding.tvCurrentWord.text = enAppWords[wordNumber]
             binding.btAnswer1.text = actualWords[0]
@@ -188,10 +274,6 @@ class MainActivity : AppCompatActivity(){
             binding.btAnswer3.setBackgroundColor(Color.GRAY)
             binding.btAnswer4.setBackgroundColor(Color.GRAY)
             binding.btAnswer5.setBackgroundColor(Color.GRAY)
-        }
-
-        // TTS на запуск
-        ttsManager.speak(enAppWords[wordNumber])
     }
 
 
@@ -223,7 +305,14 @@ class MainActivity : AppCompatActivity(){
             23 to Triple(ruNounsRestA2, enNounsRestA2, randomRuNounsRestA2),
             24 to Triple(ruNounsNatureA2, enNounsNatureA2, randomRuNounsNatureA2),
             25 to Triple(ruAdjectivesA2, enAdjectivesA2, randomRuAdjectivesA2),
-            26 to Triple(ruAdverbsA2, enAdverbsA2, randomRuAdverbsA2))
+            26 to Triple(ruAdverbsA2, enAdverbsA2, randomRuAdverbsA2),
+            31 to Triple(ruVerbsB1, enVerbsB1, randomRuVerbsB1),
+            32 to Triple(ruNounsTeensB1, enNounsTeensB1, randomRuNounsTeensB1),
+            33 to Triple(ruNounsPostCovidB1, enNounsPostCovidB1, randomRuNounsPostCovidB1),
+            34 to Triple(ruNounsSuccessB1, enNounsSuccessB1, randomRuNounsSuccessB1),
+            35 to Triple(ruAdjectivesB1, enAdjectivesB1, randomRuAdjectivesB1),
+            36 to Triple(ruAdverbsB1, enAdverbsB1, randomRuAdverbsB1)
+        )
 
         val mapCorrectWord = mapOf(
             11 to progress.a1T1-1,
@@ -239,6 +328,12 @@ class MainActivity : AppCompatActivity(){
             24 to progress.a2T4-1,
             25 to progress.a2T5-1,
             26 to progress.a2T6-1,
+            31 to progress.b1T1-1,
+            32 to progress.b1T2-1,
+            33 to progress.b1T3-1,
+            34 to progress.b1T4-1,
+            35 to progress.b1T5-1,
+            36 to progress.b1T6-1,
         )
         val errorArrayMapping = mapOf(
             11 to progress.a1T1errorArray,
@@ -253,7 +348,13 @@ class MainActivity : AppCompatActivity(){
             23 to progress.a2T3errorArray,
             24 to progress.a2T4errorArray,
             25 to progress.a2T5errorArray,
-            26 to progress.a2T6errorArray
+            26 to progress.a2T6errorArray,
+            31 to progress.b1T1errorArray,
+            32 to progress.b1T2errorArray,
+            33 to progress.b1T3errorArray,
+            34 to progress.b1T4errorArray,
+            35 to progress.b1T5errorArray,
+            36 to progress.b1T6errorArray,
         )
 
         val (rusWords, enWords, randomRuWords) = themeToWordsMap[correctTheme] ?: return
@@ -264,14 +365,8 @@ class MainActivity : AppCompatActivity(){
         errorEnWords = errorArrayMapping[correctTheme]!!.map { enAppWords[it] }.toMutableList()
         errorRuWords = errorArrayMapping[correctTheme]!!.map { rusAppWords[it] }.toMutableList()
 
-
-
-
-
         // Первая инициализация
-        /*CoroutineScope(Dispatchers.Main).launch {
-            delay(10)*/ // Задержка для инициализации TTS(если на трубке будут проблемы, раскомментировать)
-            nextWord()//}
+        nextWord()
         binding.btPlayText.setOnClickListener {
             ttsManager.speak(enAppWords[wordNumber]) }
 
@@ -290,7 +385,13 @@ class MainActivity : AppCompatActivity(){
                 23 to Progress::a2T3,
                 24 to Progress::a2T4,
                 25 to Progress::a2T5,
-                26 to Progress::a2T6
+                26 to Progress::a2T6,
+                31 to Progress::b1T1,
+                32 to Progress::b1T2,
+                33 to Progress::b1T3,
+                34 to Progress::b1T4,
+                35 to Progress::b1T5,
+                36 to Progress::b1T6,
             )
             @Suppress("NAME_SHADOWING") val errorArrayMapping = mapOf(
                 11 to Progress::a1T1errorArray,
@@ -305,7 +406,13 @@ class MainActivity : AppCompatActivity(){
                 23 to Progress::a2T3errorArray,
                 24 to Progress::a2T4errorArray,
                 25 to Progress::a2T5errorArray,
-                26 to Progress::a2T6errorArray
+                26 to Progress::a2T6errorArray,
+                31 to Progress::b1T1errorArray,
+                32 to Progress::b1T2errorArray,
+                33 to Progress::b1T3errorArray,
+                34 to Progress::b1T4errorArray,
+                35 to Progress::b1T5errorArray,
+                36 to Progress::b1T6errorArray
             )
 
             val conditionMap = mapOf(
@@ -322,6 +429,12 @@ class MainActivity : AppCompatActivity(){
                 24 to Progress::a2T4condition,
                 25 to Progress::a2T5condition,
                 26 to Progress::a2T6condition,
+                31 to Progress::b1T1condition,
+                32 to Progress::b1T2condition,
+                33 to Progress::b1T3condition,
+                34 to Progress::b1T4condition,
+                35 to Progress::b1T5condition,
+                36 to Progress::b1T6condition,
             )
 
             //TODO: Доделать обработчик решения без ошибок(A1 & A2 есть)

@@ -87,8 +87,28 @@ class ChooseThemeActivity : AppCompatActivity() {
                             }
                         }
                     }
+                    3 -> {
+                        when (progress!!.b1T1condition){
+                            0 -> {
+                                val intentMainActivity = Intent(this, MainActivity::class.java)
+                                startActivity(intentMainActivity)
+                                choosenTheme = 1
+                                correctTheme = 31
+                            }
+
+                            1 -> {
+                                val intentErrorWorkActivity =
+                                    Intent(this, ErrorWorkActivity::class.java)
+                                startActivity(intentErrorWorkActivity)
+                                choosenTheme = 1
+                                correctTheme = 31
+                            }
+                        }
+
+                        }
+                    }
                 }
-            }
+
             binding.btTheme2.setOnClickListener {
                 when (choosenLvl) {
                     1 -> {
@@ -127,6 +147,25 @@ class ChooseThemeActivity : AppCompatActivity() {
 
                             }
                         }
+                    }
+                    3 -> {
+                        when (progress!!.b1T2condition){
+                            0 -> {
+                                val intentMainActivity = Intent(this, MainActivity::class.java)
+                                startActivity(intentMainActivity)
+                                choosenTheme = 2
+                                correctTheme = 32
+                            }
+
+                            1 -> {
+                                val intentErrorWorkActivity =
+                                    Intent(this, ErrorWorkActivity::class.java)
+                                startActivity(intentErrorWorkActivity)
+                                choosenTheme = 2
+                                correctTheme = 32
+                            }
+                        }
+
                     }
                 }
             }
@@ -168,6 +207,25 @@ class ChooseThemeActivity : AppCompatActivity() {
                             }
                         }
                     }
+                    3 -> {
+                        when (progress!!.b1T3condition){
+                            0 -> {
+                                val intentMainActivity = Intent(this, MainActivity::class.java)
+                                startActivity(intentMainActivity)
+                                choosenTheme = 3
+                                correctTheme = 33
+                            }
+
+                            1 -> {
+                                val intentErrorWorkActivity =
+                                    Intent(this, ErrorWorkActivity::class.java)
+                                startActivity(intentErrorWorkActivity)
+                                choosenTheme = 3
+                                correctTheme = 33
+                            }
+                        }
+
+                    }
                 }
             }
             binding.btTheme4.setOnClickListener {
@@ -207,6 +265,25 @@ class ChooseThemeActivity : AppCompatActivity() {
                                 correctTheme = 24
                             }
                         }
+                    }
+                    3 -> {
+                        when (progress!!.b1T4condition){
+                            0 -> {
+                                val intentMainActivity = Intent(this, MainActivity::class.java)
+                                startActivity(intentMainActivity)
+                                choosenTheme = 4
+                                correctTheme = 34
+                            }
+
+                            1 -> {
+                                val intentErrorWorkActivity =
+                                    Intent(this, ErrorWorkActivity::class.java)
+                                startActivity(intentErrorWorkActivity)
+                                choosenTheme = 4
+                                correctTheme = 34
+                            }
+                        }
+
                     }
                 }
             }
@@ -248,6 +325,25 @@ class ChooseThemeActivity : AppCompatActivity() {
                             }
                         }
                     }
+                    3 -> {
+                        when (progress!!.b1T5condition){
+                            0 -> {
+                                val intentMainActivity = Intent(this, MainActivity::class.java)
+                                startActivity(intentMainActivity)
+                                choosenTheme = 5
+                                correctTheme = 35
+                            }
+
+                            1 -> {
+                                val intentErrorWorkActivity =
+                                    Intent(this, ErrorWorkActivity::class.java)
+                                startActivity(intentErrorWorkActivity)
+                                choosenTheme = 5
+                                correctTheme = 35
+                            }
+                        }
+
+                    }
                 }
             }
             binding.btTheme6.setOnClickListener {
@@ -287,6 +383,25 @@ class ChooseThemeActivity : AppCompatActivity() {
                                 correctTheme = 26
                             }
                         }
+                    }
+                    3 -> {
+                        when (progress!!.b1T6condition){
+                            0 -> {
+                                val intentMainActivity = Intent(this, MainActivity::class.java)
+                                startActivity(intentMainActivity)
+                                choosenTheme = 6
+                                correctTheme = 36
+                            }
+
+                            1 -> {
+                                val intentErrorWorkActivity =
+                                    Intent(this, ErrorWorkActivity::class.java)
+                                startActivity(intentErrorWorkActivity)
+                                choosenTheme = 1
+                                correctTheme = 36
+                            }
+                        }
+
                     }
                 }
             }
@@ -339,6 +454,20 @@ class ChooseThemeActivity : AppCompatActivity() {
             binding.btTheme4.text = "Климат и защита природы"
             binding.btTheme5.text = "Прилагательные А2"
             binding.btTheme6.text = "Наречия А2"
+            binding.btTheme7.visibility = View.GONE
+            bindingMovingTheme()
+        }
+
+        binding.btB1.setOnClickListener {
+            choosenLvl = 3
+            chooseLvlGone()
+
+            binding.btTheme1.text = "Базовые глаголы B1"
+            binding.btTheme2.text = "Молодежь и современность"
+            binding.btTheme3.text = "Пост - ковидный период"
+            binding.btTheme4.text = "Жизненные успехи и провалы"
+            binding.btTheme5.text = "Прилагательные B1"
+            binding.btTheme6.text = "Наречия B1"
             binding.btTheme7.visibility = View.GONE
             bindingMovingTheme()
         }

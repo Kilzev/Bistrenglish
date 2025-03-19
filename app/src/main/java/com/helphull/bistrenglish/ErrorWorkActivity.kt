@@ -19,43 +19,61 @@ import com.helphull.bistrenglish.progress.readJsonFile
 import com.helphull.bistrenglish.progress.updateJsonFile
 import com.helphull.bistrenglish.text.enAdjectivesA1
 import com.helphull.bistrenglish.text.enAdjectivesA2
+import com.helphull.bistrenglish.text.enAdjectivesB1
 import com.helphull.bistrenglish.text.enAdverbsA1
 import com.helphull.bistrenglish.text.enAdverbsA2
+import com.helphull.bistrenglish.text.enAdverbsB1
 import com.helphull.bistrenglish.text.enNounsFamilyA1
 import com.helphull.bistrenglish.text.enNounsJobA2
 import com.helphull.bistrenglish.text.enNounsNatureA2
+import com.helphull.bistrenglish.text.enNounsPostCovidB1
 import com.helphull.bistrenglish.text.enNounsRestA2
 import com.helphull.bistrenglish.text.enNounsSocialA1
+import com.helphull.bistrenglish.text.enNounsSuccessB1
+import com.helphull.bistrenglish.text.enNounsTeensB1
 import com.helphull.bistrenglish.text.enNounsTouristA1
 import com.helphull.bistrenglish.text.enVerbsA2
+import com.helphull.bistrenglish.text.enVerbsB1
 import com.helphull.bistrenglish.text.englishNounsWordAroundA1
 import com.helphull.bistrenglish.text.englishVerbsA1
 import com.helphull.bistrenglish.text.errorEnWords
 import com.helphull.bistrenglish.text.errorRuWords
 import com.helphull.bistrenglish.text.randomRuAdjectivesA1
 import com.helphull.bistrenglish.text.randomRuAdjectivesA2
+import com.helphull.bistrenglish.text.randomRuAdjectivesB1
 import com.helphull.bistrenglish.text.randomRuAdverbsA1
 import com.helphull.bistrenglish.text.randomRuAdverbsA2
+import com.helphull.bistrenglish.text.randomRuAdverbsB1
 import com.helphull.bistrenglish.text.randomRuNounsFamilyA1
 import com.helphull.bistrenglish.text.randomRuNounsJobA2
 import com.helphull.bistrenglish.text.randomRuNounsNatureA2
+import com.helphull.bistrenglish.text.randomRuNounsPostCovidB1
 import com.helphull.bistrenglish.text.randomRuNounsRestA2
 import com.helphull.bistrenglish.text.randomRuNounsSocialA1
+import com.helphull.bistrenglish.text.randomRuNounsSuccessB1
+import com.helphull.bistrenglish.text.randomRuNounsTeensB1
 import com.helphull.bistrenglish.text.randomRuNounsTouristA1
 import com.helphull.bistrenglish.text.randomRuVerbsA2
+import com.helphull.bistrenglish.text.randomRuVerbsB1
 import com.helphull.bistrenglish.text.randomRussianNounsWorldA1
 import com.helphull.bistrenglish.text.randomRussianVerbsA1
 import com.helphull.bistrenglish.text.ruAdjectivesA1
 import com.helphull.bistrenglish.text.ruAdjectivesA2
+import com.helphull.bistrenglish.text.ruAdjectivesB1
 import com.helphull.bistrenglish.text.ruAdverbsA1
 import com.helphull.bistrenglish.text.ruAdverbsA2
+import com.helphull.bistrenglish.text.ruAdverbsB1
 import com.helphull.bistrenglish.text.ruNounsFamilyA1
 import com.helphull.bistrenglish.text.ruNounsJobA2
 import com.helphull.bistrenglish.text.ruNounsNatureA2
+import com.helphull.bistrenglish.text.ruNounsPostCovidB1
 import com.helphull.bistrenglish.text.ruNounsRestA2
 import com.helphull.bistrenglish.text.ruNounsSocialA1
+import com.helphull.bistrenglish.text.ruNounsSuccessB1
+import com.helphull.bistrenglish.text.ruNounsTeensB1
 import com.helphull.bistrenglish.text.ruNounsTouristA1
 import com.helphull.bistrenglish.text.ruVerbsA2
+import com.helphull.bistrenglish.text.ruVerbsB1
 import com.helphull.bistrenglish.text.russianNounsWordAroundA1
 import com.helphull.bistrenglish.text.russianVerbsA1
 import kotlinx.coroutines.CoroutineScope
@@ -106,13 +124,17 @@ class ErrorWorkActivity : AppCompatActivity() {
 
     private fun nextWord() {
         wordNumber += 1
+        // TTS на запуск
+
         if (wordNumber == errorRuWords.size) {
             // Показываем кнопку "В начало"
             binding.btIdkError.visibility = View.GONE
             binding.btRestartError.visibility = View.VISIBLE
             return // Прекращаем обновление слов
         }
-
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(600)
+            ttsManager.speak(errorEnWords[wordNumber])}
         // Обновляем actualWords каждый раз при вызове nextWord()
         val actualWords = mutableListOf(
             errorRuWords[wordNumber],
@@ -161,17 +183,47 @@ class ErrorWorkActivity : AppCompatActivity() {
 
 // Мапы для хранения данных // TODO Добавить сюда
         val enWordsMap = mapOf(
-            11 to englishVerbsA1, 12 to englishNounsWordAroundA1, 13 to enNounsFamilyA1,
-            14 to enNounsSocialA1, 15 to enNounsTouristA1, 16 to enAdjectivesA1, 17 to enAdverbsA1,
-            21 to enVerbsA2, 22 to enNounsJobA2, 23 to enNounsRestA2, 24 to enNounsNatureA2,
-            25 to enAdjectivesA2, 26 to enAdverbsA2
+            11 to englishVerbsA1,
+            12 to englishNounsWordAroundA1,
+            13 to enNounsFamilyA1,
+            14 to enNounsSocialA1,
+            15 to enNounsTouristA1,
+            16 to enAdjectivesA1,
+            17 to enAdverbsA1,
+            21 to enVerbsA2,
+            22 to enNounsJobA2,
+            23 to enNounsRestA2,
+            24 to enNounsNatureA2,
+            25 to enAdjectivesA2,
+            26 to enAdverbsA2,
+            31 to enVerbsB1,
+            32 to enNounsTeensB1,
+            33 to enNounsPostCovidB1,
+            34 to enNounsSuccessB1,
+            35 to enAdjectivesB1,
+            36 to enAdverbsB1,
         )
 
         val ruWordsMap = mapOf(
-            11 to russianVerbsA1, 12 to russianNounsWordAroundA1, 13 to ruNounsFamilyA1,
-            14 to ruNounsSocialA1, 15 to ruNounsTouristA1, 16 to ruAdjectivesA1, 17 to ruAdverbsA1,
-            21 to ruVerbsA2, 22 to ruNounsJobA2, 23 to ruNounsRestA2, 24 to ruNounsNatureA2,
-            25 to ruAdjectivesA2, 26 to ruAdverbsA2
+            11 to russianVerbsA1,
+            12 to russianNounsWordAroundA1,
+            13 to ruNounsFamilyA1,
+            14 to ruNounsSocialA1,
+            15 to ruNounsTouristA1,
+            16 to ruAdjectivesA1,
+            17 to ruAdverbsA1,
+            21 to ruVerbsA2,
+            22 to ruNounsJobA2,
+            23 to ruNounsRestA2,
+            24 to ruNounsNatureA2,
+            25 to ruAdjectivesA2,
+            26 to ruAdverbsA2,
+            31 to ruVerbsB1,
+            32 to ruNounsTeensB1,
+            33 to ruNounsPostCovidB1,
+            34 to ruNounsSuccessB1,
+            35 to ruAdjectivesB1,
+            36 to ruAdverbsB1,
         )
 
         val randomRuWordsMap = mapOf(
@@ -187,7 +239,13 @@ class ErrorWorkActivity : AppCompatActivity() {
             23 to randomRuNounsRestA2,
             24 to randomRuNounsNatureA2,
             25 to randomRuAdjectivesA2,
-            26 to randomRuAdverbsA2
+            26 to randomRuAdverbsA2,
+            31 to randomRuVerbsB1,
+            32 to randomRuNounsTeensB1,
+            33 to randomRuNounsPostCovidB1,
+            34 to randomRuNounsSuccessB1,
+            35 to randomRuAdjectivesB1,
+            36 to randomRuAdverbsB1,
         )
 
         val errorArrayMap = mapOf(
@@ -203,7 +261,14 @@ class ErrorWorkActivity : AppCompatActivity() {
             23 to progress.a2T3errorArray,
             24 to progress.a2T4errorArray,
             25 to progress.a2T5errorArray,
-            26 to progress.a2T6errorArray
+            26 to progress.a2T6errorArray,
+            31 to progress.b1T1errorArray,
+            32 to progress.b1T2errorArray,
+            33 to progress.b1T3errorArray,
+            34 to progress.b1T4errorArray,
+            35 to progress.b1T5errorArray,
+            36 to progress.b1T6errorArray,
+
         )
 
 
@@ -232,7 +297,7 @@ class ErrorWorkActivity : AppCompatActivity() {
                         updateJsonFile(this, progress)
                     }}
                 }}*/
-            val mapCorrectWord = mapOf(
+            val mapCorrectWord = mapOf( // TODO Добавлять сюда
                 11 to Progress::a1T1,
                 12 to Progress::a1T2,
                 13 to Progress::a1T3,
@@ -245,7 +310,13 @@ class ErrorWorkActivity : AppCompatActivity() {
                 23 to Progress::a2T3,
                 24 to Progress::a2T4,
                 25 to Progress::a2T5,
-                26 to Progress::a2T6
+                26 to Progress::a2T6,
+                31 to Progress::b1T1,
+                32 to Progress::b1T2,
+                33 to Progress::b1T3,
+                34 to Progress::b1T4,
+                35 to Progress::b1T5,
+                36 to Progress::b1T6,
             )
             @Suppress("NAME_SHADOWING") val errorArrayMapping = mapOf(
                 11 to Progress::a1T1errorArray,
@@ -260,7 +331,13 @@ class ErrorWorkActivity : AppCompatActivity() {
                 23 to Progress::a2T3errorArray,
                 24 to Progress::a2T4errorArray,
                 25 to Progress::a2T5errorArray,
-                26 to Progress::a2T6errorArray
+                26 to Progress::a2T6errorArray,
+                31 to Progress::b1T1errorArray,
+                32 to Progress::b1T2errorArray,
+                33 to Progress::b1T3errorArray,
+                34 to Progress::b1T4errorArray,
+                35 to Progress::b1T5errorArray,
+                36 to Progress::b1T6errorArray,
             )
 
             val conditionMap = mapOf(
@@ -277,6 +354,12 @@ class ErrorWorkActivity : AppCompatActivity() {
                 24 to Progress::a2T4condition,
                 25 to Progress::a2T5condition,
                 26 to Progress::a2T6condition,
+                31 to Progress::b1T1condition,
+                32 to Progress::b1T2condition,
+                33 to Progress::b1T3condition,
+                34 to Progress::b1T4condition,
+                35 to Progress::b1T5condition,
+                36 to Progress::b1T6condition,
             )
             if (errorEnWords.size == 0) {
                 conditionMap[correctTheme]?.set(progress, 0)
