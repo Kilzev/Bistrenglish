@@ -98,7 +98,7 @@ fun updateJsonFile(context: Context, progress: Progress) {
    Log.v("JSON","Файл обновлен: $json") // Логирование для отладки
 }
 
-fun deleteJsonFile(context: Context): Boolean {
+/*fun deleteJsonFile(context: Context): Boolean {
     val file = File(context.filesDir, "progress")
     return if (file.exists()) {
         val isDeleted = file.delete()
@@ -111,5 +111,4 @@ fun deleteJsonFile(context: Context): Boolean {
     } else {
         Log.v("JSON", "Файл не существует")
         false
-    }
-}
+    }*/

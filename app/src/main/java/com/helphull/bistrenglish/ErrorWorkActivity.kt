@@ -16,7 +16,6 @@ import com.helphull.bistrenglish.databinding.ActivityErrorWorkBinding
 import com.helphull.bistrenglish.progress.Progress
 import com.helphull.bistrenglish.progress.correctTheme
 import com.helphull.bistrenglish.progress.readJsonFile
-import com.helphull.bistrenglish.progress.updateJsonFile
 import com.helphull.bistrenglish.text.enAdjectivesA1
 import com.helphull.bistrenglish.text.enAdjectivesA2
 import com.helphull.bistrenglish.text.enAdjectivesB1
@@ -92,6 +91,7 @@ class ErrorWorkActivity : AppCompatActivity() {
         binding.btAnswer3Error.isClickable = false
         binding.btAnswer4Error.isClickable = false
         binding.btAnswer5Error.isClickable = false
+        binding.btIdkError.isClickable = false
     }
 
     private var wordNumber = -1
@@ -122,7 +122,7 @@ class ErrorWorkActivity : AppCompatActivity() {
     private val indexOfSolvedErrors = mutableListOf<Int>()
 
 
-    private fun nextWord() {
+    private fun nextWord(delayInNextWord : Long) {
         wordNumber += 1
         // TTS на запуск
 
@@ -133,7 +133,7 @@ class ErrorWorkActivity : AppCompatActivity() {
             return // Прекращаем обновление слов
         }
         CoroutineScope(Dispatchers.Main).launch {
-            delay(600)
+            delay(delayInNextWord)
             ttsManager.speak(errorEnWords[wordNumber])}
         // Обновляем actualWords каждый раз при вызове nextWord()
         val actualWords = mutableListOf(
@@ -160,6 +160,7 @@ class ErrorWorkActivity : AppCompatActivity() {
         binding.btAnswer3Error.isClickable = true
         binding.btAnswer4Error.isClickable = true
         binding.btAnswer5Error.isClickable = true
+        binding.btIdkError.isClickable = true
 
         // Сбрасываем цвет кнопок
         binding.btAnswer1Error.setBackgroundColor(Color.GRAY)
@@ -179,6 +180,7 @@ class ErrorWorkActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        ttsManager = TextToSpeechManager(this)
         val progress = readJsonFile(this)!!
 
 // Мапы для хранения данных // TODO Добавить сюда
@@ -282,8 +284,7 @@ class ErrorWorkActivity : AppCompatActivity() {
         errorEnWords = errorArray.map { enWords[it] }.toMutableList()
         errorRuWords = errorArray.map { ruWords[it] }.toMutableList()
         randomRuErrorWords = randomRuWords
-        nextWord()
-        ttsManager = TextToSpeechManager(this)
+        nextWord(800)
         binding.btPlayTextError.setOnClickListener { ttsManager.speak(errorEnWords[wordNumber]) }
         binding.btRestartError.setOnClickListener {
             errorEnWords.removeAll(enWordsToRemove)
@@ -318,7 +319,7 @@ class ErrorWorkActivity : AppCompatActivity() {
                 35 to Progress::b1T5,
                 36 to Progress::b1T6,
             )
-            @Suppress("NAME_SHADOWING") val errorArrayMapping = mapOf(
+            val errorArrayMapping = mapOf(
                 11 to Progress::a1T1errorArray,
                 12 to Progress::a1T2errorArray,
                 13 to Progress::a1T3errorArray,
@@ -377,8 +378,12 @@ class ErrorWorkActivity : AppCompatActivity() {
             recreate() // Закрываем текущую Activity
         }
         binding.btIdkError.setOnClickListener {
-            nextWord()
-        }
+            paintGreen()
+            unclickable()
+            CoroutineScope(Dispatchers.Main).launch {
+                delay(delayInApp) // Задержка 1.2 секунды
+                nextWord(50)
+            }}
         binding.btAnswer1Error.setOnClickListener {
             if (binding.btAnswer1Error.text == errorRuWords[wordNumber]) {
                 unclickable()
@@ -387,7 +392,7 @@ class ErrorWorkActivity : AppCompatActivity() {
                 Log.d("Correct", "$enWordsToRemove")
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             } else {
                 unclickable()
@@ -395,7 +400,7 @@ class ErrorWorkActivity : AppCompatActivity() {
                 paintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             }
         }
@@ -408,7 +413,7 @@ class ErrorWorkActivity : AppCompatActivity() {
                 Log.d("Correct", "$enWordsToRemove")
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             } else {
                 unclickable()
@@ -416,7 +421,7 @@ class ErrorWorkActivity : AppCompatActivity() {
                 paintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             }
         }
@@ -429,7 +434,7 @@ class ErrorWorkActivity : AppCompatActivity() {
                 Log.d("Correct", "$enWordsToRemove")
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             } else {
                 unclickable()
@@ -437,7 +442,7 @@ class ErrorWorkActivity : AppCompatActivity() {
                 paintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             }
         }
@@ -451,7 +456,7 @@ class ErrorWorkActivity : AppCompatActivity() {
                 Log.d("Correct", "$enWordsToRemove")
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             } else {
                 unclickable()
@@ -459,7 +464,7 @@ class ErrorWorkActivity : AppCompatActivity() {
                 paintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             }
         }
@@ -471,7 +476,7 @@ class ErrorWorkActivity : AppCompatActivity() {
                 Log.d("Correct", "$enWordsToRemove")
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             } else {
                 unclickable()
@@ -479,7 +484,7 @@ class ErrorWorkActivity : AppCompatActivity() {
                 paintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             }
         }

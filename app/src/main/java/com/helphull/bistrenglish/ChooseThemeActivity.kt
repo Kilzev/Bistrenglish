@@ -38,10 +38,10 @@ class ChooseThemeActivity : AppCompatActivity() {
                 binding.tvTheme, binding.btBackLvlChoose)
             themeLayout.forEach { it.visibility = View.VISIBLE }
             binding.btBackLvlChoose.setOnClickListener {
-                val allLayout = listOf(binding.btA1, binding.btA2,binding.btB1,binding.btB2,
+                @Suppress("NAME_SHADOWING") val allLayout = listOf(binding.btA1, binding.btA2,binding.btB1,binding.btB2,
                     binding.btC1,binding.btC2, binding.tvChooseLvl)
                 allLayout.forEach { it.visibility = View.VISIBLE }
-                val themeLayout = listOf(binding.btTheme1, binding.btTheme2, binding.btTheme3,
+                @Suppress("NAME_SHADOWING") val themeLayout = listOf(binding.btTheme1, binding.btTheme2, binding.btTheme3,
                     binding.btTheme4, binding.btTheme5, binding.btTheme6, binding.btTheme7,
                     binding.tvTheme, binding.btBackLvlChoose)
                 themeLayout.forEach { it.visibility = View.GONE }

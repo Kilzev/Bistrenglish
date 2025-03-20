@@ -150,7 +150,7 @@ class MainActivity : AppCompatActivity(){
 
     private var wordNumber = -1
 
-    private fun nextWord() {
+    private fun nextWord(delayInNextWord : Long) {
         val progress = readJsonFile(this)!!
         if (wordNumber >= rusAppWords.size - 1) {
             // Показываем кнопку "В начало"
@@ -161,7 +161,7 @@ class MainActivity : AppCompatActivity(){
         wordNumber += 1
         // TTS на запуск
         CoroutineScope(Dispatchers.Main).launch {
-            delay(600)
+            delay(delayInNextWord)
             ttsManager.speak(enAppWords[wordNumber])}
 
         when (correctTheme) { //TODO Добавить сюда
@@ -366,7 +366,7 @@ class MainActivity : AppCompatActivity(){
         errorRuWords = errorArrayMapping[correctTheme]!!.map { rusAppWords[it] }.toMutableList()
 
         // Первая инициализация
-        nextWord()
+        nextWord(800)
         binding.btPlayText.setOnClickListener {
             ttsManager.speak(enAppWords[wordNumber]) }
 
@@ -469,7 +469,7 @@ class MainActivity : AppCompatActivity(){
             unclickable()
             CoroutineScope(Dispatchers.Main).launch {
                 delay(delayInApp) // Задержка 1.2 секунды
-                nextWord()
+                nextWord(50)
             }
         }
 
@@ -481,7 +481,7 @@ class MainActivity : AppCompatActivity(){
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             } else {
                 addErrors()
@@ -490,7 +490,7 @@ class MainActivity : AppCompatActivity(){
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             }
         }
@@ -501,7 +501,7 @@ class MainActivity : AppCompatActivity(){
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             } else {
                 addErrors()
@@ -510,7 +510,7 @@ class MainActivity : AppCompatActivity(){
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             }
         }
@@ -522,7 +522,7 @@ class MainActivity : AppCompatActivity(){
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             } else {
                 addErrors()
@@ -531,7 +531,7 @@ class MainActivity : AppCompatActivity(){
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             }
         }
@@ -544,7 +544,7 @@ class MainActivity : AppCompatActivity(){
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             } else {
                 addErrors()
@@ -553,7 +553,7 @@ class MainActivity : AppCompatActivity(){
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             }
         }
@@ -564,7 +564,7 @@ class MainActivity : AppCompatActivity(){
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             } else {
                 addErrors()
@@ -573,7 +573,7 @@ class MainActivity : AppCompatActivity(){
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
-                    nextWord()  // Переход к следующему слову
+                    nextWord(50)  // Переход к следующему слову
                 }
             }
         }
