@@ -4,6 +4,7 @@ import TextToSpeechManager
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -19,20 +20,35 @@ import com.helphull.bistrenglish.progress.updateJsonFile
 import com.helphull.bistrenglish.text.enAdjectivesA1
 import com.helphull.bistrenglish.text.enAdjectivesA2
 import com.helphull.bistrenglish.text.enAdjectivesB1
+import com.helphull.bistrenglish.text.enAdjectivesB2
+import com.helphull.bistrenglish.text.enAdjectivesC1
 import com.helphull.bistrenglish.text.enAdverbsA1
 import com.helphull.bistrenglish.text.enAdverbsA2
 import com.helphull.bistrenglish.text.enAdverbsB1
+import com.helphull.bistrenglish.text.enAdverbsB2
+import com.helphull.bistrenglish.text.enAdverbsC1
+import com.helphull.bistrenglish.text.enIdioms
+import com.helphull.bistrenglish.text.enJargon
+import com.helphull.bistrenglish.text.enNounsEarthC1
 import com.helphull.bistrenglish.text.enNounsFamilyA1
 import com.helphull.bistrenglish.text.enNounsJobA2
+import com.helphull.bistrenglish.text.enNounsModernEducationB2
+import com.helphull.bistrenglish.text.enNounsModernLiteratureB2
 import com.helphull.bistrenglish.text.enNounsNatureA2
+import com.helphull.bistrenglish.text.enNounsPersonalityC1
 import com.helphull.bistrenglish.text.enNounsPostCovidB1
 import com.helphull.bistrenglish.text.enNounsRestA2
+import com.helphull.bistrenglish.text.enNounsScienceC1
+import com.helphull.bistrenglish.text.enNounsSocTrendsB2
 import com.helphull.bistrenglish.text.enNounsSocialA1
 import com.helphull.bistrenglish.text.enNounsSuccessB1
 import com.helphull.bistrenglish.text.enNounsTeensB1
 import com.helphull.bistrenglish.text.enNounsTouristA1
+import com.helphull.bistrenglish.text.enPhrasalVerbs
 import com.helphull.bistrenglish.text.enVerbsA2
 import com.helphull.bistrenglish.text.enVerbsB1
+import com.helphull.bistrenglish.text.enVerbsB2
+import com.helphull.bistrenglish.text.enVerbsC1
 import com.helphull.bistrenglish.text.englishNounsWordAroundA1
 
 import com.helphull.bistrenglish.text.englishVerbsA1
@@ -42,38 +58,68 @@ import com.helphull.bistrenglish.text.randomRuNounsFamilyA1
 import com.helphull.bistrenglish.text.randomRuAdjectivesA1
 import com.helphull.bistrenglish.text.randomRuAdjectivesA2
 import com.helphull.bistrenglish.text.randomRuAdjectivesB1
+import com.helphull.bistrenglish.text.randomRuAdjectivesB2
+import com.helphull.bistrenglish.text.randomRuAdjectivesC1
 import com.helphull.bistrenglish.text.randomRuAdverbsA1
 import com.helphull.bistrenglish.text.randomRuAdverbsA2
 import com.helphull.bistrenglish.text.randomRuAdverbsB1
+import com.helphull.bistrenglish.text.randomRuAdverbsB2
+import com.helphull.bistrenglish.text.randomRuAdverbsC1
+import com.helphull.bistrenglish.text.randomRuIdioms
+import com.helphull.bistrenglish.text.randomRuJargon
+import com.helphull.bistrenglish.text.randomRuNounsEarthC1
 import com.helphull.bistrenglish.text.randomRuNounsJobA2
+import com.helphull.bistrenglish.text.randomRuNounsModernEducationB2
+import com.helphull.bistrenglish.text.randomRuNounsModernLiteratureB2
 import com.helphull.bistrenglish.text.randomRuNounsNatureA2
+import com.helphull.bistrenglish.text.randomRuNounsPersonalityC1
 import com.helphull.bistrenglish.text.randomRuNounsPostCovidB1
 import com.helphull.bistrenglish.text.randomRuNounsRestA2
+import com.helphull.bistrenglish.text.randomRuNounsScienceC1
+import com.helphull.bistrenglish.text.randomRuNounsSocTrendsB2
 import com.helphull.bistrenglish.text.randomRuNounsSocialA1
 import com.helphull.bistrenglish.text.randomRuNounsSuccessB1
 import com.helphull.bistrenglish.text.randomRuNounsTeensB1
 import com.helphull.bistrenglish.text.randomRuNounsTouristA1
+import com.helphull.bistrenglish.text.randomRuPhrasalVerbs
 import com.helphull.bistrenglish.text.randomRuVerbsA2
 import com.helphull.bistrenglish.text.randomRuVerbsB1
+import com.helphull.bistrenglish.text.randomRuVerbsB2
+import com.helphull.bistrenglish.text.randomRuVerbsC1
 import com.helphull.bistrenglish.text.randomRussianNounsWorldA1
 import com.helphull.bistrenglish.text.randomRussianVerbsA1
 import com.helphull.bistrenglish.text.ruAdjectivesA1
 import com.helphull.bistrenglish.text.ruAdjectivesA2
 import com.helphull.bistrenglish.text.ruAdjectivesB1
+import com.helphull.bistrenglish.text.ruAdjectivesB2
+import com.helphull.bistrenglish.text.ruAdjectivesC1
 import com.helphull.bistrenglish.text.ruAdverbsA1
 import com.helphull.bistrenglish.text.ruAdverbsA2
 import com.helphull.bistrenglish.text.ruAdverbsB1
+import com.helphull.bistrenglish.text.ruAdverbsB2
+import com.helphull.bistrenglish.text.ruAdverbsC1
+import com.helphull.bistrenglish.text.ruIdioms
+import com.helphull.bistrenglish.text.ruJargon
+import com.helphull.bistrenglish.text.ruNounsEarthC1
 import com.helphull.bistrenglish.text.ruNounsFamilyA1
 import com.helphull.bistrenglish.text.ruNounsJobA2
+import com.helphull.bistrenglish.text.ruNounsModernEducationB2
+import com.helphull.bistrenglish.text.ruNounsModernLiteratureB2
 import com.helphull.bistrenglish.text.ruNounsNatureA2
+import com.helphull.bistrenglish.text.ruNounsPersonalityC1
 import com.helphull.bistrenglish.text.ruNounsPostCovidB1
 import com.helphull.bistrenglish.text.ruNounsRestA2
+import com.helphull.bistrenglish.text.ruNounsScienceC1
+import com.helphull.bistrenglish.text.ruNounsSocTrendsB2
 import com.helphull.bistrenglish.text.ruNounsSocialA1
 import com.helphull.bistrenglish.text.ruNounsSuccessB1
 import com.helphull.bistrenglish.text.ruNounsTeensB1
 import com.helphull.bistrenglish.text.ruNounsTouristA1
+import com.helphull.bistrenglish.text.ruPhrasalVerbs
 import com.helphull.bistrenglish.text.ruVerbsA2
 import com.helphull.bistrenglish.text.ruVerbsB1
+import com.helphull.bistrenglish.text.ruVerbsB2
+import com.helphull.bistrenglish.text.ruVerbsC1
 import com.helphull.bistrenglish.text.russianNounsWordAroundA1
 
 import com.helphull.bistrenglish.text.russianVerbsA1
@@ -133,6 +179,22 @@ class MainActivity : AppCompatActivity(){
             34 to progress.b1T4errorArray,
             35 to progress.b1T5errorArray,
             36 to progress.b1T6errorArray,
+            41 to progress.b2T1errorArray,
+            42 to progress.b2T2errorArray,
+            43 to progress.b2T3errorArray,
+            44 to progress.b2T4errorArray,
+            45 to progress.b2T5errorArray,
+            46 to progress.b2T6errorArray,
+            51 to progress.c1T1errorArray,
+            52 to progress.c1T2errorArray,
+            53 to progress.c1T3errorArray,
+            54 to progress.c1T4errorArray,
+            55 to progress.c1T5errorArray,
+            56 to progress.c1T6errorArray,
+            61 to progress.c2T1errorArray,
+            62 to progress.c2T2errorArray,
+            63 to progress.c2T3errorArray,
+
         )
 
         errorArrayMapping[correctTheme]?.add(wordNumber)
@@ -239,6 +301,62 @@ class MainActivity : AppCompatActivity(){
             36 -> {
                 progress.b1T6 = wordNumber
             }
+            41 -> {
+                progress.b2T1 = wordNumber
+            }
+
+            42 -> {
+                progress.b2T2 = wordNumber
+            }
+
+            43 -> {
+                progress.b2T3 = wordNumber
+            }
+            44 -> {
+                progress.b2T4 = wordNumber
+            }
+
+            45 -> {
+                progress.b2T5 = wordNumber
+            }
+
+            46 -> {
+                progress.b2T6 = wordNumber
+            }
+            51 -> {
+                progress.c1T1 = wordNumber
+            }
+
+            52 -> {
+                progress.c1T2 = wordNumber
+            }
+
+            53 -> {
+                progress.c1T3 = wordNumber
+            }
+
+            54 -> {
+                progress.c1T4 = wordNumber
+            }
+
+            55 -> {
+                progress.c1T5 = wordNumber
+            }
+
+            56 -> {
+                progress.c1T6 = wordNumber
+            }
+            61 -> {
+                progress.c2T1 = wordNumber
+            }
+
+            62 -> {
+                progress.c2T2 = wordNumber
+            }
+
+            63 -> {
+                progress.c2T3 = wordNumber
+            }
         }
         updateJsonFile(this, progress)
         // Обновляем actualWords каждый раз при вызове nextWord()
@@ -311,7 +429,23 @@ class MainActivity : AppCompatActivity(){
             33 to Triple(ruNounsPostCovidB1, enNounsPostCovidB1, randomRuNounsPostCovidB1),
             34 to Triple(ruNounsSuccessB1, enNounsSuccessB1, randomRuNounsSuccessB1),
             35 to Triple(ruAdjectivesB1, enAdjectivesB1, randomRuAdjectivesB1),
-            36 to Triple(ruAdverbsB1, enAdverbsB1, randomRuAdverbsB1)
+            36 to Triple(ruAdverbsB1, enAdverbsB1, randomRuAdverbsB1),
+            41 to Triple(ruVerbsB2, enVerbsB2, randomRuVerbsB2),
+            42 to Triple(ruNounsModernEducationB2, enNounsModernEducationB2, randomRuNounsModernEducationB2),
+            43 to Triple(ruNounsSocTrendsB2, enNounsSocTrendsB2, randomRuNounsSocTrendsB2),
+            44 to Triple(ruNounsModernLiteratureB2, enNounsModernLiteratureB2, randomRuNounsModernLiteratureB2),
+            45 to Triple(ruAdjectivesB2, enAdjectivesB2, randomRuAdjectivesB2),
+            46 to Triple(ruAdverbsB2, enAdverbsB2, randomRuAdverbsB2),
+            51 to Triple(ruVerbsC1, enVerbsC1, randomRuVerbsC1),
+            52 to Triple(ruNounsScienceC1, enNounsScienceC1, randomRuNounsScienceC1),
+            53 to Triple(ruNounsPersonalityC1, enNounsPersonalityC1, randomRuNounsPersonalityC1),
+            54 to Triple(ruNounsEarthC1, enNounsEarthC1, randomRuNounsEarthC1),
+            55 to Triple(ruAdjectivesC1, enAdjectivesC1, randomRuAdjectivesC1),
+            56 to Triple(ruAdverbsC1, enAdverbsC1, randomRuAdverbsC1),
+            61 to Triple(ruIdioms, enIdioms, randomRuIdioms),
+            62 to Triple(ruJargon, enJargon, randomRuJargon),
+            63 to Triple(ruPhrasalVerbs, enPhrasalVerbs, randomRuPhrasalVerbs),
+
         )
 
         val mapCorrectWord = mapOf(
@@ -334,6 +468,21 @@ class MainActivity : AppCompatActivity(){
             34 to progress.b1T4-1,
             35 to progress.b1T5-1,
             36 to progress.b1T6-1,
+            41 to progress.b2T1-1,
+            42 to progress.b2T2-1,
+            43 to progress.b2T3-1,
+            44 to progress.b2T4-1,
+            45 to progress.b2T5-1,
+            46 to progress.b2T6-1,
+            51 to progress.c1T1-1,
+            52 to progress.c1T2-1,
+            53 to progress.c1T3-1,
+            54 to progress.c1T4-1,
+            55 to progress.c1T5-1,
+            56 to progress.c1T6-1,
+            61 to progress.c2T1-1,
+            62 to progress.c2T2-1,
+            63 to progress.c2T3-1,
         )
         val errorArrayMapping = mapOf(
             11 to progress.a1T1errorArray,
@@ -355,6 +504,21 @@ class MainActivity : AppCompatActivity(){
             34 to progress.b1T4errorArray,
             35 to progress.b1T5errorArray,
             36 to progress.b1T6errorArray,
+            41 to progress.b2T1errorArray,
+            42 to progress.b2T2errorArray,
+            43 to progress.b2T3errorArray,
+            44 to progress.b2T4errorArray,
+            45 to progress.b2T5errorArray,
+            46 to progress.b2T6errorArray,
+            51 to progress.c1T1errorArray,
+            52 to progress.c1T2errorArray,
+            53 to progress.c1T3errorArray,
+            54 to progress.c1T4errorArray,
+            55 to progress.c1T5errorArray,
+            56 to progress.c1T6errorArray,
+            61 to progress.c2T1errorArray,
+            62 to progress.c2T2errorArray,
+            63 to progress.c2T3errorArray,
         )
 
         val (rusWords, enWords, randomRuWords) = themeToWordsMap[correctTheme] ?: return
@@ -392,6 +556,21 @@ class MainActivity : AppCompatActivity(){
                 34 to Progress::b1T4,
                 35 to Progress::b1T5,
                 36 to Progress::b1T6,
+                41 to Progress::c1T1,
+                42 to Progress::c1T2,
+                43 to Progress::c1T3,
+                44 to Progress::c1T4,
+                45 to Progress::c1T5,
+                46 to Progress::c1T6,
+                51 to Progress::c1T1,
+                52 to Progress::c1T2,
+                53 to Progress::c1T3,
+                54 to Progress::c1T4,
+                55 to Progress::c1T5,
+                56 to Progress::c1T6,
+                61 to Progress::c2T1,
+                62 to Progress::c2T2,
+                63 to Progress::c2T3,
             )
             @Suppress("NAME_SHADOWING") val errorArrayMapping = mapOf(
                 11 to Progress::a1T1errorArray,
@@ -412,7 +591,22 @@ class MainActivity : AppCompatActivity(){
                 33 to Progress::b1T3errorArray,
                 34 to Progress::b1T4errorArray,
                 35 to Progress::b1T5errorArray,
-                36 to Progress::b1T6errorArray
+                36 to Progress::b1T6errorArray,
+                41 to Progress::b2T1errorArray,
+                42 to Progress::b2T2errorArray,
+                43 to Progress::b2T3errorArray,
+                44 to Progress::b2T4errorArray,
+                45 to Progress::b2T5errorArray,
+                46 to Progress::b2T6errorArray,
+                51 to Progress::c1T1errorArray,
+                52 to Progress::c1T2errorArray,
+                53 to Progress::c1T3errorArray,
+                54 to Progress::c1T4errorArray,
+                55 to Progress::c1T5errorArray,
+                56 to Progress::c1T6errorArray,
+                61 to Progress::c2T1errorArray,
+                62 to Progress::c2T2errorArray,
+                63 to Progress::c2T3errorArray,
             )
 
             val conditionMap = mapOf(
@@ -435,6 +629,21 @@ class MainActivity : AppCompatActivity(){
                 34 to Progress::b1T4condition,
                 35 to Progress::b1T5condition,
                 36 to Progress::b1T6condition,
+                41 to Progress::b2T1condition,
+                42 to Progress::b2T2condition,
+                43 to Progress::b2T3condition,
+                44 to Progress::b2T4condition,
+                45 to Progress::b2T5condition,
+                46 to Progress::b2T6condition,
+                51 to Progress::c1T1condition,
+                52 to Progress::c1T2condition,
+                53 to Progress::c1T3condition,
+                54 to Progress::c1T4condition,
+                55 to Progress::c1T5condition,
+                56 to Progress::c1T6condition,
+                61 to Progress::c2T1condition,
+                62 to Progress::c2T2condition,
+                63 to Progress::c2T3condition,
             )
 
             //TODO: Доделать обработчик решения без ошибок(A1 & A2 есть)
@@ -580,7 +789,7 @@ class MainActivity : AppCompatActivity(){
     }
     override fun onDestroy() {
         super.onDestroy()
-        ttsManager.shutdown()
+       ttsManager.shutdown()
     }
 
 }
