@@ -1,7 +1,9 @@
 package com.helphull.bistrenglish
 
 import TextToSpeechManager
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -9,8 +11,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import com.google.gson.Gson
 import com.helphull.bistrenglish.databinding.ActivityMainBinding
 import com.helphull.bistrenglish.progress.Progress
@@ -141,17 +146,16 @@ class MainActivity : AppCompatActivity(){
 
 
     private fun btPaintGreen() {
-        if (binding.btAnswer1.text == rusAppWords[wordNumber]) {
-            binding.btAnswer1.setBackgroundColor(Color.GREEN)
-        } else if (binding.btAnswer2.text == rusAppWords[wordNumber]) {
-            binding.btAnswer2.setBackgroundColor(Color.GREEN)
-        } else if (binding.btAnswer3.text == rusAppWords[wordNumber]) {
-            binding.btAnswer3.setBackgroundColor(Color.GREEN)
-        } else if (binding.btAnswer4.text == rusAppWords[wordNumber]) {
-            binding.btAnswer4.setBackgroundColor(Color.GREEN)
-        } else if (binding.btAnswer5.text == rusAppWords[wordNumber]) {
-            binding.btAnswer5.setBackgroundColor(Color.GREEN)
-        }
+        val correctColor = ContextCompat.getColor(this, R.color.light_backgraund_bt_green)
+
+        listOf(
+            binding.btAnswer1,
+            binding.btAnswer2,
+            binding.btAnswer3,
+            binding.btAnswer4,
+            binding.btAnswer5
+        ).firstOrNull { it.text == rusAppWords[wordNumber] }
+            ?.setBackgroundColor(correctColor)
     }
 
     private fun addErrors() { // TODO Добавить сюда
@@ -212,11 +216,13 @@ class MainActivity : AppCompatActivity(){
 
     private var wordNumber = -1
 
+    @SuppressLint("SuspiciousIndentation")
     private fun nextWord(delayInNextWord : Long) {
         val progress = readJsonFile(this)!!
         if (wordNumber >= rusAppWords.size - 1) {
             // Показываем кнопку "В начало"
             binding.btGoToErrorActivity.visibility = View.VISIBLE
+            binding.btIdk.visibility = View.GONE
             return // Прекращаем обновление слов
         }
 
@@ -387,11 +393,13 @@ class MainActivity : AppCompatActivity(){
             binding.btIdk.isClickable = true
 
             // Сбрасываем цвет кнопок
-            binding.btAnswer1.setBackgroundColor(Color.GRAY)
-            binding.btAnswer2.setBackgroundColor(Color.GRAY)
-            binding.btAnswer3.setBackgroundColor(Color.GRAY)
-            binding.btAnswer4.setBackgroundColor(Color.GRAY)
-            binding.btAnswer5.setBackgroundColor(Color.GRAY)
+        val greyColor = ContextCompat.getColor(this, R.color.light_backgraund_bt_white)
+
+            binding.btAnswer1.setBackgroundColor(greyColor)
+            binding.btAnswer2.setBackgroundColor(greyColor)
+            binding.btAnswer3.setBackgroundColor(greyColor)
+            binding.btAnswer4.setBackgroundColor(greyColor)
+            binding.btAnswer5.setBackgroundColor(greyColor)
     }
 
 
@@ -686,7 +694,7 @@ class MainActivity : AppCompatActivity(){
         binding.btAnswer1.setOnClickListener {
             if (binding.btAnswer1.text == rusAppWords[wordNumber]) {
                 unclickable()
-                binding.btAnswer1.setBackgroundColor(Color.GREEN)
+                binding.btAnswer1.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_green))
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
@@ -695,7 +703,7 @@ class MainActivity : AppCompatActivity(){
             } else {
                 addErrors()
                 unclickable()
-                binding.btAnswer1.setBackgroundColor(Color.RED)
+                binding.btAnswer1.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_red))
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
@@ -706,7 +714,7 @@ class MainActivity : AppCompatActivity(){
         binding.btAnswer2.setOnClickListener {
             if (binding.btAnswer2.text == rusAppWords[wordNumber]) {
                 unclickable()
-                binding.btAnswer2.setBackgroundColor(Color.GREEN)
+                binding.btAnswer2.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_green))
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
@@ -715,7 +723,7 @@ class MainActivity : AppCompatActivity(){
             } else {
                 addErrors()
                 unclickable()
-                binding.btAnswer2.setBackgroundColor(Color.RED)
+                binding.btAnswer2.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_red))
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
@@ -727,7 +735,7 @@ class MainActivity : AppCompatActivity(){
 
             if (binding.btAnswer3.text == rusAppWords[wordNumber]) {
                 unclickable()
-                binding.btAnswer3.setBackgroundColor(Color.GREEN)
+                binding.btAnswer3.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_green))
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
@@ -736,7 +744,7 @@ class MainActivity : AppCompatActivity(){
             } else {
                 addErrors()
                 unclickable()
-                binding.btAnswer3.setBackgroundColor(Color.RED)
+                binding.btAnswer3.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_red))
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
@@ -749,7 +757,7 @@ class MainActivity : AppCompatActivity(){
 
             if (binding.btAnswer4.text == rusAppWords[wordNumber]) {
                 unclickable()
-                binding.btAnswer4.setBackgroundColor(Color.GREEN)
+                binding.btAnswer4.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_green))
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
@@ -758,7 +766,7 @@ class MainActivity : AppCompatActivity(){
             } else {
                 addErrors()
                 unclickable()
-                binding.btAnswer4.setBackgroundColor(Color.RED)
+                binding.btAnswer4.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_red))
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
@@ -769,7 +777,7 @@ class MainActivity : AppCompatActivity(){
         binding.btAnswer5.setOnClickListener {
             if (binding.btAnswer5.text == rusAppWords[wordNumber]) {
                 unclickable()
-                binding.btAnswer5.setBackgroundColor(Color.GREEN)
+                binding.btAnswer5.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_green))
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
@@ -778,13 +786,15 @@ class MainActivity : AppCompatActivity(){
             } else {
                 addErrors()
                 unclickable()
-                binding.btAnswer5.setBackgroundColor(Color.RED)
+                binding.btAnswer5.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_red))
                 btPaintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
                     nextWord(50)  // Переход к следующему слову
                 }
             }
+        }
+        binding.btBackLvlChoose.setOnClickListener { finish()
         }
     }
     override fun onDestroy() {

@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.gson.Gson
@@ -143,15 +144,15 @@ class ErrorWorkActivity : AppCompatActivity() {
 
     private fun paintGreen() {
         if (binding.btAnswer1Error.text == errorRuWords[wordNumber]) {
-            binding.btAnswer1Error.setBackgroundColor(Color.GREEN)
+            binding.btAnswer1Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_green))
         } else if (binding.btAnswer2Error.text == errorRuWords[wordNumber]) {
-            binding.btAnswer2Error.setBackgroundColor(Color.GREEN)
+            binding.btAnswer2Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_green))
         } else if (binding.btAnswer3Error.text == errorRuWords[wordNumber]) {
-            binding.btAnswer3Error.setBackgroundColor(Color.GREEN)
+            binding.btAnswer3Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_green))
         } else if (binding.btAnswer4Error.text == errorRuWords[wordNumber]) {
-            binding.btAnswer4Error.setBackgroundColor(Color.GREEN)
+            binding.btAnswer4Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_green))
         } else if (binding.btAnswer5Error.text == errorRuWords[wordNumber]) {
-            binding.btAnswer5Error.setBackgroundColor(Color.GREEN)
+            binding.btAnswer5Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_green))
         }
     }
     
@@ -210,11 +211,11 @@ class ErrorWorkActivity : AppCompatActivity() {
         binding.btIdkError.isClickable = true
 
         // Сбрасываем цвет кнопок
-        binding.btAnswer1Error.setBackgroundColor(Color.GRAY)
-        binding.btAnswer2Error.setBackgroundColor(Color.GRAY)
-        binding.btAnswer3Error.setBackgroundColor(Color.GRAY)
-        binding.btAnswer4Error.setBackgroundColor(Color.GRAY)
-        binding.btAnswer5Error.setBackgroundColor(Color.GRAY)
+        binding.btAnswer1Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_white))
+        binding.btAnswer2Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_white))
+        binding.btAnswer3Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_white))
+        binding.btAnswer4Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_white))
+        binding.btAnswer5Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_white))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -539,7 +540,7 @@ class ErrorWorkActivity : AppCompatActivity() {
         binding.btAnswer1Error.setOnClickListener {
             if (binding.btAnswer1Error.text == errorRuWords[wordNumber]) {
                 unclickable()
-                binding.btAnswer1Error.setBackgroundColor(Color.GREEN)
+                binding.btAnswer1Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_green))
                 removeWord()
                 Log.d("Correct", "$enWordsToRemove")
                 CoroutineScope(Dispatchers.Main).launch {
@@ -548,7 +549,7 @@ class ErrorWorkActivity : AppCompatActivity() {
                 }
             } else {
                 unclickable()
-                binding.btAnswer1Error.setBackgroundColor(Color.RED)
+                binding.btAnswer1Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_red))
                 paintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
@@ -559,7 +560,7 @@ class ErrorWorkActivity : AppCompatActivity() {
         binding.btAnswer2Error.setOnClickListener {
             if (binding.btAnswer2Error.text == errorRuWords[wordNumber]) {
                 unclickable()
-                binding.btAnswer2Error.setBackgroundColor(Color.GREEN)
+                binding.btAnswer2Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_green))
 
                 removeWord()
                 Log.d("Correct", "$enWordsToRemove")
@@ -569,7 +570,7 @@ class ErrorWorkActivity : AppCompatActivity() {
                 }
             } else {
                 unclickable()
-                binding.btAnswer2Error.setBackgroundColor(Color.RED)
+                binding.btAnswer2Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_red))
                 paintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
@@ -581,7 +582,7 @@ class ErrorWorkActivity : AppCompatActivity() {
 
             if (binding.btAnswer3Error.text == errorRuWords[wordNumber]) {
                 unclickable()
-                binding.btAnswer3Error.setBackgroundColor(Color.GREEN)
+                binding.btAnswer3Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_green))
                 removeWord()
                 Log.d("Correct", "$enWordsToRemove")
                 CoroutineScope(Dispatchers.Main).launch {
@@ -590,7 +591,7 @@ class ErrorWorkActivity : AppCompatActivity() {
                 }
             } else {
                 unclickable()
-                binding.btAnswer3Error.setBackgroundColor(Color.RED)
+                binding.btAnswer3Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_red))
                 paintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
@@ -603,7 +604,7 @@ class ErrorWorkActivity : AppCompatActivity() {
 
             if (binding.btAnswer4Error.text == errorRuWords[wordNumber]) {
                 unclickable()
-                binding.btAnswer4Error.setBackgroundColor(Color.GREEN)
+                binding.btAnswer4Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_green))
                 removeWord()
                 Log.d("Correct", "$enWordsToRemove")
                 CoroutineScope(Dispatchers.Main).launch {
@@ -612,7 +613,7 @@ class ErrorWorkActivity : AppCompatActivity() {
                 }
             } else {
                 unclickable()
-                binding.btAnswer4Error.setBackgroundColor(Color.RED)
+                binding.btAnswer4Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_red))
                 paintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
@@ -623,7 +624,7 @@ class ErrorWorkActivity : AppCompatActivity() {
         binding.btAnswer5Error.setOnClickListener {
             if (binding.btAnswer5Error.text == errorRuWords[wordNumber]) {
                 unclickable()
-                binding.btAnswer5Error.setBackgroundColor(Color.GREEN)
+                binding.btAnswer5Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_green))
                 removeWord()
                 Log.d("Correct", "$enWordsToRemove")
                 CoroutineScope(Dispatchers.Main).launch {
@@ -632,7 +633,7 @@ class ErrorWorkActivity : AppCompatActivity() {
                 }
             } else {
                 unclickable()
-                binding.btAnswer5Error.setBackgroundColor(Color.RED)
+                binding.btAnswer5Error.setBackgroundColor(ContextCompat.getColor(this, R.color.light_backgraund_bt_red))
                 paintGreen()
                 CoroutineScope(Dispatchers.Main).launch {
                     delay(delayInApp) // Задержка 1.2 секунды
