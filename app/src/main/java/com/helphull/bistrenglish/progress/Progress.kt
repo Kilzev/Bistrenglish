@@ -1,7 +1,6 @@
 package com.helphull.bistrenglish.progress
 import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import com.google.gson.Gson
 import java.io.File
 
@@ -122,7 +121,7 @@ fun createJsonFile(context: Context){
         val json = Gson().toJson(Progress())
         file.writeText(json)
     }
-    else{Toast.makeText(context,"И снова здравствуйте!", Toast.LENGTH_SHORT).show()}
+    else{Log.v("Trouble", "Джейсон уже имеется")}
 }
 
 fun readJsonFile(context: Context): Progress? {

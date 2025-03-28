@@ -2,13 +2,19 @@ package com.helphull.bistrenglish
 
 import android.annotation.SuppressLint
 import android.content.Intent
+
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+
 import com.helphull.bistrenglish.databinding.ActivityCooseThemeBinding
+
+import com.helphull.bistrenglish.progress.choosenLvl
+import com.helphull.bistrenglish.progress.choosenTheme
 import com.helphull.bistrenglish.progress.correctTheme
 import com.helphull.bistrenglish.progress.createJsonFile
 import com.helphull.bistrenglish.progress.readJsonFile
@@ -28,6 +34,7 @@ class ChooseThemeActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        // ToastUtils.showCustomToast(this,"Hello")
 
         fun chooseLvlGone(){
             val allLayout = listOf(binding.btA1, binding.btA2,binding.btB1,binding.btB2,

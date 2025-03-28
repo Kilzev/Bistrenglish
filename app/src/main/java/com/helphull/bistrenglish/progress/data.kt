@@ -1,4 +1,4 @@
-package com.helphull.bistrenglish
+package com.helphull.bistrenglish.progress
 
 const val delayInApp:Long = 1300
 

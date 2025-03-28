@@ -2,11 +2,10 @@ package com.helphull.bistrenglish
 
 import TextToSpeechManager
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -15,7 +14,9 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.gson.Gson
 import com.helphull.bistrenglish.databinding.ActivityErrorWorkBinding
 import com.helphull.bistrenglish.progress.Progress
+import com.helphull.bistrenglish.progress.ToastUtils
 import com.helphull.bistrenglish.progress.correctTheme
+import com.helphull.bistrenglish.progress.delayInApp
 import com.helphull.bistrenglish.progress.readJsonFile
 import com.helphull.bistrenglish.text.enAdjectivesA1
 import com.helphull.bistrenglish.text.enAdjectivesA2
@@ -522,7 +523,7 @@ class ErrorWorkActivity : AppCompatActivity() {
                 val updateJson = Gson().toJson(progress)
                 File(this.filesDir,"progress").writeText(updateJson)
 
-                Toast.makeText(this, "Ошибки прорешаны!", Toast.LENGTH_SHORT).show()
+                ToastUtils.showCustomToast(this,"Ошибки прорешаны!")
                 Thread.sleep(delayInApp)
                 val intentChooseThemeActivity = Intent(this, ChooseThemeActivity::class.java)
                 startActivity(intentChooseThemeActivity)

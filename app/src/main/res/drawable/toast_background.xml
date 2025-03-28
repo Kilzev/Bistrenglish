@@ -1,0 +1,14 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Цвет фона (можно использовать полупрозрачный) -->
+    <solid android:color="@color/light_backgraund_bt_green"/> <!-- 80% прозрачности черного -->
+
+    <!-- Скругление углов -->
+    <corners android:radius="10dp"/> <!-- Укажите нужное значение -->
+
+    <!-- Дополнительно можно добавить отступы -->
+    <padding
+        android:left="16dp"
+        android:top="12dp"
+        android:right="16dp"
+        android:bottom="12dp"/>
+</shape>

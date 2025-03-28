@@ -3,23 +3,19 @@ package com.helphull.bistrenglish
 import TextToSpeechManager
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isVisible
 import com.google.gson.Gson
 import com.helphull.bistrenglish.databinding.ActivityMainBinding
 import com.helphull.bistrenglish.progress.Progress
+import com.helphull.bistrenglish.progress.ToastUtils
 import com.helphull.bistrenglish.progress.correctTheme
+import com.helphull.bistrenglish.progress.delayInApp
 import com.helphull.bistrenglish.progress.readJsonFile
 import com.helphull.bistrenglish.progress.updateJsonFile
 import com.helphull.bistrenglish.text.enAdjectivesA1
@@ -662,7 +658,7 @@ class MainActivity : AppCompatActivity(){
                 val updateJson = Gson().toJson(progress)
                 File(this.filesDir,"progress").writeText(updateJson)
 
-                Toast.makeText(this, "Ошибок нет!", Toast.LENGTH_SHORT).show()
+                ToastUtils.showCustomToast(this,"Ошибок нет!")
                 Thread.sleep(delayInApp)
 
                 val intentChooseThemeActivity = Intent(this, ChooseThemeActivity::class.java)
